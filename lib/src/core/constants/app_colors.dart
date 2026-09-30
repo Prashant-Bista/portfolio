@@ -18,7 +18,32 @@ class AppColors {
     // static const  Color  = Color(0XFF);
     // static const  Color  = Color(0XFF);
 
+static const background = Color(0xFF0A0C0F);
 
+  // Main accent — lime green
 
+  // Main headings / job titles
+  static const primaryText = Color(0xFFF5F7F2);
+
+  // Secondary information — company, inactive dates
+  static const secondaryText = Color(0xFF9BA3AD);
+
+  // Timeline line + inactive circles + tag borders
+  static const timelineBorder = Color(0xFF343B45);
+  
+
+  static const educationCard = Color(0xFF11151A);
+
+  static const educationBorder = Color(0xFF202B38);
+
+  static const educationYear = Color(0xFFB9FF45);
+
+  static const educationInstitute = Color(0xFFF5F7F2);
+
+  static const educationCourse = Color(0xFFB0A0FF);
+
+  static const educationAddress = Color(0xFF8D98A6);
+
+  static const educationPercentage = Color(0xFFB9FF45);
   
 }

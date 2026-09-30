@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:portfolio/src/core/components/error_widget.dart';
 import 'package:portfolio/src/core/components/highlighted_label.dart';
+import 'package:portfolio/src/core/components/loading_widget.dart';
 import 'package:portfolio/src/core/constants/app_colors.dart';
-import 'package:portfolio/src/core/constants/app_images.dart';
 import 'package:portfolio/src/core/constants/app_strings.dart';
+import 'package:portfolio/src/features/home/data/model/personal_info_model.dart';
+import 'package:portfolio/src/features/home/presentation/provider/get_personal_details_provider.dart';
 
 
 
-class IntroductionSection extends StatelessWidget {
+class IntroductionSection extends ConsumerWidget {
   const IntroductionSection({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final personalDetails = ref.watch(getPersonalDetailsProvider);
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 800;
@@ -22,16 +28,22 @@ class IntroductionSection extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             vertical: 80.h,
           ),
-          child: isMobile
-              ? const _MobileIntroduction()
-              : const _DesktopIntroduction(),
+          child: personalDetails.when(
+            data: (model) => isMobile
+                ? _MobileIntroduction(model: model)
+                : _DesktopIntroduction(model: model),
+            error: (error, st) => AppErrorWidget(message: error.toString()),
+            loading: () => const AppLoadingWidget(),
+          ),
         );
       },
     );
   }
 }
 class _DesktopIntroduction extends StatelessWidget {
-  const _DesktopIntroduction();
+  const _DesktopIntroduction({required this.model});
+
+  final PersonalInfoModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -40,33 +52,37 @@ class _DesktopIntroduction extends StatelessWidget {
       children: [
         Expanded(
           flex: 6,
-          child: _IntroductionContent(),
+          child: _IntroductionContent(model: model),
         ),
 
 const Spacer(),
-        Center(child: _ProfileImage()),
+        Center(child: _ProfileImage(model: model)),
       ],
     );
   }
 }
 class _MobileIntroduction extends StatelessWidget {
-  const _MobileIntroduction();
+  const _MobileIntroduction({required this.model});
+
+  final PersonalInfoModel model;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const _ProfileImage(),
+        _ProfileImage(model: model),
 
         SizedBox(height: 45.h),
 
-        const _IntroductionContent(),
+        _IntroductionContent(model: model),
       ],
     );
   }
 }
 class _IntroductionContent extends StatelessWidget {
-  const _IntroductionContent();
+  const _IntroductionContent({required this.model});
+
+  final PersonalInfoModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +126,7 @@ class _IntroductionContent extends StatelessWidget {
         SizedBox(height: 14.h),
 
         Text(
-          AppStrings.fullName,
+          model.name,
           style: textTheme.headlineMedium?.copyWith(
             fontSize: 27.sp,
             color: colors.primary,
@@ -125,7 +141,7 @@ class _IntroductionContent extends StatelessWidget {
             maxWidth: 760.w,
           ),
           child: Text(
-            AppStrings.introductionDescription,
+            model.description,
             style: textTheme.bodyLarge?.copyWith(
               height: 1.7,
             ),
@@ -134,13 +150,15 @@ class _IntroductionContent extends StatelessWidget {
 
         SizedBox(height: 35.h),
 
-        _PersonalInformation(),
+        _PersonalInformation(model: model),
       ],
     );
   }
 }
 class _PersonalInformation extends StatelessWidget {
-  const _PersonalInformation();
+  const _PersonalInformation({required this.model});
+
+  final PersonalInfoModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -149,26 +167,26 @@ class _PersonalInformation extends StatelessWidget {
         final isSmall = constraints.maxWidth < 550;
 
         final items = [
-          const _InfoItem(
+          _InfoItem(
             icon: Icons.location_on_outlined,
             label: AppStrings.addressLabel,
-            value: AppStrings.address,
+            value: model.address,
           ),
-          const _InfoItem(
+          _InfoItem(
             icon: Icons.phone_outlined,
             label: AppStrings.phoneLabel,
-            value: AppStrings.phone,
+            value: model.phone,
           ),
-          const _InfoItem(
+          _InfoItem(
             icon: Icons.email_outlined,
             label: AppStrings.emailLabel,
-            value: AppStrings.email,
+            value: model.email,
           ),
-      
-          const _InfoItem(
+
+          _InfoItem(
             icon: Icons.work_outline,
             label: AppStrings.workExperienceLabel,
-            value: AppStrings.workExperience,
+            value: model.workExperience,
           ),
         ];
 
@@ -279,24 +297,22 @@ class _InfoItem extends StatelessWidget {
 }
 
 class _ProfileImage extends StatelessWidget {
-  const _ProfileImage();
+  const _ProfileImage({required this.model});
+
+  final PersonalInfoModel model;
 
   @override
   Widget build(BuildContext context) {
-    
-
-    return  ClipRRect(
-                  borderRadius:
-                      BorderRadius.circular(22.r),
-                  child: Image.asset(
-                  
-                    height: 350,
-                    width: 350,
-                    AppImages.profile,
-                    fit: BoxFit.cover,
-                    alignment: Alignment.center,
-                  ),
-                );
-      
+    return ClipRRect(
+      borderRadius:
+          BorderRadius.circular(22.r),
+      child: Image.network(
+        height: 350,
+        width: 350,
+        "https://res.cloudinary.com/dtbcdluw/image/upload/f_auto,q_auto/profile.jpg",
+        fit: BoxFit.cover,
+        alignment: Alignment.center,
+      ),
+    );
   }
 }

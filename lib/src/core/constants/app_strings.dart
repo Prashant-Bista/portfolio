@@ -2,7 +2,6 @@ class AppStrings {
   AppStrings._();
 
   // App Bar
-  static const String appName = 'Prashant Bista';
   static const String appRole = 'Flutter Developer';
 
   static const String home = 'Home';
@@ -22,9 +21,7 @@ class AppStrings {
   static const String heroTitleLineFour = 'momentum.';
 
   static const String heroDescription =
-      "I'm Prashant, a placeholder mobile app developer profile focused "
-      'on polished iOS, Android, and cross-platform experiences—from '
-      'first prototype to reliable release.';
+      "I'm Prashant, a placeholder mobile app developer profile focused on polished iOS, Android, and cross-platform experiences—from first prototype to reliable release.";
 
   static const String exploreWorks = 'Explore works';
 
@@ -113,4 +110,6 @@ class AppStrings {
 
   static const String startConversation =
       'Start a conversation';
+
+  static const educationHeader = "Education and Certification";
 }
