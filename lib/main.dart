@@ -6,8 +6,8 @@ import 'package:portfolio/firebase_options.dart';
 import 'package:portfolio/src/core/components/portfolio_schema.dart';
 import 'package:portfolio/src/core/config/router/router_config.dart';
 
-void main() {
-        Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+void main() async{
+      await  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(const MyApp());
 }

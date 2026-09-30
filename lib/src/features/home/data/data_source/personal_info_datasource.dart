@@ -18,11 +18,8 @@ class PersonalInfoDatasource {
   Future<PersonalInfoModel?> getPersonalInfo() async{
     try{
       final snapshot = await firestore.collection("personal_info").limit(1).get();
-      if(snapshot.docs[0]!=null){
-        debugPrint(snapshot.docs[0].data().toString());
+                 return PersonalInfoModel.fromJson(snapshot.docs[0].data());
 
-            return PersonalInfoModel.fromJson(snapshot.docs[0].data());
-      }
     }
     catch(e){
             debugPrint("Error fetching personal details from Firestore: $e");

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:portfolio/src/core/config/router/routes.dart';
 
 import '../../core/constants/app_strings.dart';
 import 'custom_button.dart';
@@ -7,18 +9,10 @@ import 'custom_button.dart';
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     super.key,
-    this.onStartProject,
-    this.onHome,
-    this.onProjects,
-    this.onBlog,
-    this.onContact,
+  
   });
 
-  final VoidCallback? onStartProject;
-  final VoidCallback? onHome;
-  final VoidCallback? onProjects;
-  final VoidCallback? onBlog;
-  final VoidCallback? onContact;
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,19 +72,28 @@ class CustomAppBar extends StatelessWidget {
                     _NavItem(
                       label: AppStrings.home,
                       isSelected: true,
-                      onTap: onHome,
+                      onTap: (){
+                                                context.goNamed(Routes.home.name);
+
+                      },
                     ),
                     _NavItem(
                       label: AppStrings.projects,
-                      onTap: onProjects,
+                      onTap: (){},
                     ),
                     _NavItem(
                       label: AppStrings.blog,
-                      onTap: onBlog,
+                      onTap: (){},
+                    ),
+                    _NavItem(
+                      label: AppStrings.experience,
+                      onTap: (){
+                        context.goNamed(Routes.experience.name);
+                      },
                     ),
                     _NavItem(
                       label: AppStrings.contact,
-                      onTap: onContact,
+                      onTap: (){},
                     ),
                 
                    
@@ -104,7 +107,7 @@ class CustomAppBar extends StatelessWidget {
                                     
                       label: AppStrings.startAProject,
                       icon: Icons.north_east,
-                      onPressed: onStartProject,
+                      onPressed: (){},
                       padding:  EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 12,

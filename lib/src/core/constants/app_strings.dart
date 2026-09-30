@@ -8,6 +8,8 @@ class AppStrings {
   static const String projects = 'Projects';
   static const String blog = 'Blog';
   static const String contact = 'Contact';
+    static const experience = "Experience";
+
 
   static const String startAProject = 'Start a project';
 

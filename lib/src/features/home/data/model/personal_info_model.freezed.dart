@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PersonalInfoModel {
 
- String get name; String get address; String get email; String get photo; String get phone; String get description;@JsonKey(name: "work_experience") String get workExperience;
+ String get name; String get address; String get email; String get photo; String get phone; String get description;@JsonKey(name: "tech_stack") Map<String, dynamic> get techStack;@JsonKey(name: "work_experience") String get workExperience;
 /// Create a copy of PersonalInfoModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $PersonalInfoModelCopyWith<PersonalInfoModel> get copyWith => _$PersonalInfoMode
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersonalInfoModel&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.email, email) || other.email == email)&&(identical(other.photo, photo) || other.photo == photo)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.description, description) || other.description == description)&&(identical(other.workExperience, workExperience) || other.workExperience == workExperience));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PersonalInfoModel&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.email, email) || other.email == email)&&(identical(other.photo, photo) || other.photo == photo)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.techStack, techStack)&&(identical(other.workExperience, workExperience) || other.workExperience == workExperience));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,address,email,photo,phone,description,workExperience);
+int get hashCode => Object.hash(runtimeType,name,address,email,photo,phone,description,const DeepCollectionEquality().hash(techStack),workExperience);
 
 @override
 String toString() {
-  return 'PersonalInfoModel(name: $name, address: $address, email: $email, photo: $photo, phone: $phone, description: $description, workExperience: $workExperience)';
+  return 'PersonalInfoModel(name: $name, address: $address, email: $email, photo: $photo, phone: $phone, description: $description, techStack: $techStack, workExperience: $workExperience)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $PersonalInfoModelCopyWith<$Res>  {
   factory $PersonalInfoModelCopyWith(PersonalInfoModel value, $Res Function(PersonalInfoModel) _then) = _$PersonalInfoModelCopyWithImpl;
 @useResult
 $Res call({
- String name, String address, String email, String photo, String phone, String description,@JsonKey(name: "work_experience") String workExperience
+ String name, String address, String email, String photo, String phone, String description,@JsonKey(name: "tech_stack") Map<String, dynamic> techStack,@JsonKey(name: "work_experience") String workExperience
 });
 
 
@@ -65,7 +65,7 @@ class _$PersonalInfoModelCopyWithImpl<$Res>
 
 /// Create a copy of PersonalInfoModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? address = null,Object? email = null,Object? photo = null,Object? phone = null,Object? description = null,Object? workExperience = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? address = null,Object? email = null,Object? photo = null,Object? phone = null,Object? description = null,Object? techStack = null,Object? workExperience = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
@@ -73,7 +73,8 @@ as String,email: null == email ? _self.email : email // ignore: cast_nullable_to
 as String,photo: null == photo ? _self.photo : photo // ignore: cast_nullable_to_non_nullable
 as String,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,workExperience: null == workExperience ? _self.workExperience : workExperience // ignore: cast_nullable_to_non_nullable
+as String,techStack: null == techStack ? _self.techStack : techStack // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,workExperience: null == workExperience ? _self.workExperience : workExperience // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -159,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String address,  String email,  String photo,  String phone,  String description, @JsonKey(name: "work_experience")  String workExperience)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String address,  String email,  String photo,  String phone,  String description, @JsonKey(name: "tech_stack")  Map<String, dynamic> techStack, @JsonKey(name: "work_experience")  String workExperience)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PersonalInfoModel() when $default != null:
-return $default(_that.name,_that.address,_that.email,_that.photo,_that.phone,_that.description,_that.workExperience);case _:
+return $default(_that.name,_that.address,_that.email,_that.photo,_that.phone,_that.description,_that.techStack,_that.workExperience);case _:
   return orElse();
 
 }
@@ -180,10 +181,10 @@ return $default(_that.name,_that.address,_that.email,_that.photo,_that.phone,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String address,  String email,  String photo,  String phone,  String description, @JsonKey(name: "work_experience")  String workExperience)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String address,  String email,  String photo,  String phone,  String description, @JsonKey(name: "tech_stack")  Map<String, dynamic> techStack, @JsonKey(name: "work_experience")  String workExperience)  $default,) {final _that = this;
 switch (_that) {
 case _PersonalInfoModel():
-return $default(_that.name,_that.address,_that.email,_that.photo,_that.phone,_that.description,_that.workExperience);case _:
+return $default(_that.name,_that.address,_that.email,_that.photo,_that.phone,_that.description,_that.techStack,_that.workExperience);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +201,10 @@ return $default(_that.name,_that.address,_that.email,_that.photo,_that.phone,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String address,  String email,  String photo,  String phone,  String description, @JsonKey(name: "work_experience")  String workExperience)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String address,  String email,  String photo,  String phone,  String description, @JsonKey(name: "tech_stack")  Map<String, dynamic> techStack, @JsonKey(name: "work_experience")  String workExperience)?  $default,) {final _that = this;
 switch (_that) {
 case _PersonalInfoModel() when $default != null:
-return $default(_that.name,_that.address,_that.email,_that.photo,_that.phone,_that.description,_that.workExperience);case _:
+return $default(_that.name,_that.address,_that.email,_that.photo,_that.phone,_that.description,_that.techStack,_that.workExperience);case _:
   return null;
 
 }
@@ -215,7 +216,7 @@ return $default(_that.name,_that.address,_that.email,_that.photo,_that.phone,_th
 @JsonSerializable()
 
 class _PersonalInfoModel implements PersonalInfoModel {
-  const _PersonalInfoModel({required this.name, required this.address, required this.email, required this.photo, required this.phone, required this.description, @JsonKey(name: "work_experience") required this.workExperience});
+  const _PersonalInfoModel({required this.name, required this.address, required this.email, required this.photo, required this.phone, required this.description, @JsonKey(name: "tech_stack") required final  Map<String, dynamic> techStack, @JsonKey(name: "work_experience") required this.workExperience}): _techStack = techStack;
   factory _PersonalInfoModel.fromJson(Map<String, dynamic> json) => _$PersonalInfoModelFromJson(json);
 
 @override final  String name;
@@ -224,6 +225,13 @@ class _PersonalInfoModel implements PersonalInfoModel {
 @override final  String photo;
 @override final  String phone;
 @override final  String description;
+ final  Map<String, dynamic> _techStack;
+@override@JsonKey(name: "tech_stack") Map<String, dynamic> get techStack {
+  if (_techStack is EqualUnmodifiableMapView) return _techStack;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_techStack);
+}
+
 @override@JsonKey(name: "work_experience") final  String workExperience;
 
 /// Create a copy of PersonalInfoModel
@@ -239,16 +247,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersonalInfoModel&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.email, email) || other.email == email)&&(identical(other.photo, photo) || other.photo == photo)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.description, description) || other.description == description)&&(identical(other.workExperience, workExperience) || other.workExperience == workExperience));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PersonalInfoModel&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.email, email) || other.email == email)&&(identical(other.photo, photo) || other.photo == photo)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._techStack, _techStack)&&(identical(other.workExperience, workExperience) || other.workExperience == workExperience));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,address,email,photo,phone,description,workExperience);
+int get hashCode => Object.hash(runtimeType,name,address,email,photo,phone,description,const DeepCollectionEquality().hash(_techStack),workExperience);
 
 @override
 String toString() {
-  return 'PersonalInfoModel(name: $name, address: $address, email: $email, photo: $photo, phone: $phone, description: $description, workExperience: $workExperience)';
+  return 'PersonalInfoModel(name: $name, address: $address, email: $email, photo: $photo, phone: $phone, description: $description, techStack: $techStack, workExperience: $workExperience)';
 }
 
 
@@ -259,7 +267,7 @@ abstract mixin class _$PersonalInfoModelCopyWith<$Res> implements $PersonalInfoM
   factory _$PersonalInfoModelCopyWith(_PersonalInfoModel value, $Res Function(_PersonalInfoModel) _then) = __$PersonalInfoModelCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String address, String email, String photo, String phone, String description,@JsonKey(name: "work_experience") String workExperience
+ String name, String address, String email, String photo, String phone, String description,@JsonKey(name: "tech_stack") Map<String, dynamic> techStack,@JsonKey(name: "work_experience") String workExperience
 });
 
 
@@ -276,7 +284,7 @@ class __$PersonalInfoModelCopyWithImpl<$Res>
 
 /// Create a copy of PersonalInfoModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? address = null,Object? email = null,Object? photo = null,Object? phone = null,Object? description = null,Object? workExperience = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? address = null,Object? email = null,Object? photo = null,Object? phone = null,Object? description = null,Object? techStack = null,Object? workExperience = null,}) {
   return _then(_PersonalInfoModel(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
@@ -284,7 +292,8 @@ as String,email: null == email ? _self.email : email // ignore: cast_nullable_to
 as String,photo: null == photo ? _self.photo : photo // ignore: cast_nullable_to_non_nullable
 as String,phone: null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,workExperience: null == workExperience ? _self.workExperience : workExperience // ignore: cast_nullable_to_non_nullable
+as String,techStack: null == techStack ? _self._techStack : techStack // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,workExperience: null == workExperience ? _self.workExperience : workExperience // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ExperienceModel {
 
- String get company; DateTime get start; String get role; DateTime? get end; List<String> get tags;
+ String get company; String get role;@TimestampConverter() DateTime? get end; int get order; List<String> get tags;@TimestampConverter() DateTime? get start;
 /// Create a copy of ExperienceModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ExperienceModelCopyWith<ExperienceModel> get copyWith => _$ExperienceModelCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExperienceModel&&(identical(other.company, company) || other.company == company)&&(identical(other.start, start) || other.start == start)&&(identical(other.role, role) || other.role == role)&&(identical(other.end, end) || other.end == end)&&const DeepCollectionEquality().equals(other.tags, tags));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExperienceModel&&(identical(other.company, company) || other.company == company)&&(identical(other.role, role) || other.role == role)&&(identical(other.end, end) || other.end == end)&&(identical(other.order, order) || other.order == order)&&const DeepCollectionEquality().equals(other.tags, tags)&&(identical(other.start, start) || other.start == start));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,company,start,role,end,const DeepCollectionEquality().hash(tags));
+int get hashCode => Object.hash(runtimeType,company,role,end,order,const DeepCollectionEquality().hash(tags),start);
 
 @override
 String toString() {
-  return 'ExperienceModel(company: $company, start: $start, role: $role, end: $end, tags: $tags)';
+  return 'ExperienceModel(company: $company, role: $role, end: $end, order: $order, tags: $tags, start: $start)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ExperienceModelCopyWith<$Res>  {
   factory $ExperienceModelCopyWith(ExperienceModel value, $Res Function(ExperienceModel) _then) = _$ExperienceModelCopyWithImpl;
 @useResult
 $Res call({
- String company, DateTime start, String role, DateTime? end, List<String> tags
+ String company, String role,@TimestampConverter() DateTime? end, int order, List<String> tags,@TimestampConverter() DateTime? start
 });
 
 
@@ -65,14 +65,15 @@ class _$ExperienceModelCopyWithImpl<$Res>
 
 /// Create a copy of ExperienceModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? company = null,Object? start = null,Object? role = null,Object? end = freezed,Object? tags = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? company = null,Object? role = null,Object? end = freezed,Object? order = null,Object? tags = null,Object? start = freezed,}) {
   return _then(_self.copyWith(
 company: null == company ? _self.company : company // ignore: cast_nullable_to_non_nullable
-as String,start: null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
-as DateTime,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String,end: freezed == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
-as DateTime?,tags: null == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as DateTime?,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
+as int,tags: null == tags ? _self.tags : tags // ignore: cast_nullable_to_non_nullable
+as List<String>,start: freezed == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 
@@ -157,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String company,  DateTime start,  String role,  DateTime? end,  List<String> tags)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String company,  String role, @TimestampConverter()  DateTime? end,  int order,  List<String> tags, @TimestampConverter()  DateTime? start)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ExperienceModel() when $default != null:
-return $default(_that.company,_that.start,_that.role,_that.end,_that.tags);case _:
+return $default(_that.company,_that.role,_that.end,_that.order,_that.tags,_that.start);case _:
   return orElse();
 
 }
@@ -178,10 +179,10 @@ return $default(_that.company,_that.start,_that.role,_that.end,_that.tags);case 
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String company,  DateTime start,  String role,  DateTime? end,  List<String> tags)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String company,  String role, @TimestampConverter()  DateTime? end,  int order,  List<String> tags, @TimestampConverter()  DateTime? start)  $default,) {final _that = this;
 switch (_that) {
 case _ExperienceModel():
-return $default(_that.company,_that.start,_that.role,_that.end,_that.tags);case _:
+return $default(_that.company,_that.role,_that.end,_that.order,_that.tags,_that.start);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +199,10 @@ return $default(_that.company,_that.start,_that.role,_that.end,_that.tags);case 
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String company,  DateTime start,  String role,  DateTime? end,  List<String> tags)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String company,  String role, @TimestampConverter()  DateTime? end,  int order,  List<String> tags, @TimestampConverter()  DateTime? start)?  $default,) {final _that = this;
 switch (_that) {
 case _ExperienceModel() when $default != null:
-return $default(_that.company,_that.start,_that.role,_that.end,_that.tags);case _:
+return $default(_that.company,_that.role,_that.end,_that.order,_that.tags,_that.start);case _:
   return null;
 
 }
@@ -213,13 +214,13 @@ return $default(_that.company,_that.start,_that.role,_that.end,_that.tags);case 
 @JsonSerializable()
 
 class _ExperienceModel implements ExperienceModel {
-  const _ExperienceModel({required this.company, required this.start, required this.role, required this.end, required final  List<String> tags}): _tags = tags;
+  const _ExperienceModel({required this.company, required this.role, @TimestampConverter() this.end, required this.order, required final  List<String> tags, @TimestampConverter() this.start}): _tags = tags;
   factory _ExperienceModel.fromJson(Map<String, dynamic> json) => _$ExperienceModelFromJson(json);
 
 @override final  String company;
-@override final  DateTime start;
 @override final  String role;
-@override final  DateTime? end;
+@override@TimestampConverter() final  DateTime? end;
+@override final  int order;
  final  List<String> _tags;
 @override List<String> get tags {
   if (_tags is EqualUnmodifiableListView) return _tags;
@@ -227,6 +228,7 @@ class _ExperienceModel implements ExperienceModel {
   return EqualUnmodifiableListView(_tags);
 }
 
+@override@TimestampConverter() final  DateTime? start;
 
 /// Create a copy of ExperienceModel
 /// with the given fields replaced by the non-null parameter values.
@@ -241,16 +243,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExperienceModel&&(identical(other.company, company) || other.company == company)&&(identical(other.start, start) || other.start == start)&&(identical(other.role, role) || other.role == role)&&(identical(other.end, end) || other.end == end)&&const DeepCollectionEquality().equals(other._tags, _tags));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExperienceModel&&(identical(other.company, company) || other.company == company)&&(identical(other.role, role) || other.role == role)&&(identical(other.end, end) || other.end == end)&&(identical(other.order, order) || other.order == order)&&const DeepCollectionEquality().equals(other._tags, _tags)&&(identical(other.start, start) || other.start == start));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,company,start,role,end,const DeepCollectionEquality().hash(_tags));
+int get hashCode => Object.hash(runtimeType,company,role,end,order,const DeepCollectionEquality().hash(_tags),start);
 
 @override
 String toString() {
-  return 'ExperienceModel(company: $company, start: $start, role: $role, end: $end, tags: $tags)';
+  return 'ExperienceModel(company: $company, role: $role, end: $end, order: $order, tags: $tags, start: $start)';
 }
 
 
@@ -261,7 +263,7 @@ abstract mixin class _$ExperienceModelCopyWith<$Res> implements $ExperienceModel
   factory _$ExperienceModelCopyWith(_ExperienceModel value, $Res Function(_ExperienceModel) _then) = __$ExperienceModelCopyWithImpl;
 @override @useResult
 $Res call({
- String company, DateTime start, String role, DateTime? end, List<String> tags
+ String company, String role,@TimestampConverter() DateTime? end, int order, List<String> tags,@TimestampConverter() DateTime? start
 });
 
 
@@ -278,14 +280,15 @@ class __$ExperienceModelCopyWithImpl<$Res>
 
 /// Create a copy of ExperienceModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? company = null,Object? start = null,Object? role = null,Object? end = freezed,Object? tags = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? company = null,Object? role = null,Object? end = freezed,Object? order = null,Object? tags = null,Object? start = freezed,}) {
   return _then(_ExperienceModel(
 company: null == company ? _self.company : company // ignore: cast_nullable_to_non_nullable
-as String,start: null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
-as DateTime,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
 as String,end: freezed == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
-as DateTime?,tags: null == tags ? _self._tags : tags // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as DateTime?,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
+as int,tags: null == tags ? _self._tags : tags // ignore: cast_nullable_to_non_nullable
+as List<String>,start: freezed == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
+as DateTime?,
   ));
 }
 

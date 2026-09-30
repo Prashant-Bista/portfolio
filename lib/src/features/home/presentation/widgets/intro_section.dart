@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/src/core/components/error_widget.dart';
 import 'package:portfolio/src/core/components/highlighted_label.dart';
 import 'package:portfolio/src/core/components/loading_widget.dart';
-import 'package:portfolio/src/core/constants/app_colors.dart';
 import 'package:portfolio/src/core/constants/app_strings.dart';
 import 'package:portfolio/src/features/home/data/model/personal_info_model.dart';
 import 'package:portfolio/src/features/home/presentation/provider/get_personal_details_provider.dart';
@@ -309,7 +308,7 @@ class _ProfileImage extends StatelessWidget {
       child: Image.network(
         height: 350,
         width: 350,
-        "https://res.cloudinary.com/dtbcdluw/image/upload/f_auto,q_auto/profile.jpg",
+        "https://res.cloudinary.com/dtbcdluw/image/upload/f_auto,q_auto/profile",
         fit: BoxFit.cover,
         alignment: Alignment.center,
       ),

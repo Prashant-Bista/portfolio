@@ -14,6 +14,7 @@ _PersonalInfoModel _$PersonalInfoModelFromJson(Map<String, dynamic> json) =>
       photo: json['photo'] as String,
       phone: json['phone'] as String,
       description: json['description'] as String,
+      techStack: json['tech_stack'] as Map<String, dynamic>,
       workExperience: json['work_experience'] as String,
     );
 
@@ -25,5 +26,6 @@ Map<String, dynamic> _$PersonalInfoModelToJson(_PersonalInfoModel instance) =>
       'photo': instance.photo,
       'phone': instance.phone,
       'description': instance.description,
+      'tech_stack': instance.techStack,
       'work_experience': instance.workExperience,
     };

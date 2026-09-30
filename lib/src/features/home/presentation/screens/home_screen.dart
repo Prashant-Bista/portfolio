@@ -22,13 +22,7 @@ class HomeScreen extends StatelessWidget {
       appBar: null,
       body: Column(
         children: [
-          CustomAppBar(
-            onStartProject: () {},
-            onHome: () {},
-            onProjects: () {},
-            onBlog: () {},
-            onContact: () {},
-          ),
+          CustomAppBar(),
 
           Expanded(
             child: SingleChildScrollView(

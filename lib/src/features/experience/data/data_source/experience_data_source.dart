@@ -18,7 +18,7 @@ class ExperienceDataSource {
     List<ExperienceModel> experiences=snapshot.docs.map((doc){
       return ExperienceModel.fromJson(doc.data());
     }).toList();
-  
+  experiences.sort((a,b)=>b.order.compareTo(a.order));
     return experiences;
   }
 }

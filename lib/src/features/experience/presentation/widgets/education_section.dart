@@ -8,46 +8,36 @@ import 'package:portfolio/src/features/experience/data/model/education_model.dar
 class EducationSection extends StatelessWidget {
   final List<EducationModel> education;
 
-  const EducationSection({
-    super.key,
-    required this.education,
-  });
+  const EducationSection({super.key, required this.education});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 100.w,
-        vertical: 100.h,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 100.w, vertical: 100.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomText(
             text: AppStrings.educationHeader,
             textColor: AppColors.primaryText,
-            fontSize: 18.sp,
+            fontSize: 18,
             fontWeight: FontWeight.w700,
             letterSpacing: 1.5,
           ),
 
           SizedBox(height: 42.h),
 
-          EducationGrid(
-            education: education,
-          ),
+          EducationGrid(education: education),
         ],
       ),
     );
   }
 }
+
 class EducationGrid extends StatelessWidget {
   final List<EducationModel> education;
 
-  const EducationGrid({
-    super.key,
-    required this.education,
-  });
+  const EducationGrid({super.key, required this.education});
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +46,8 @@ class EducationGrid extends StatelessWidget {
         final crossAxisCount = constraints.maxWidth >= 1200
             ? 3
             : constraints.maxWidth >= 700
-                ? 2
-                : 1;
+            ? 2
+            : 1;
 
         final spacing = 20.w;
 
@@ -69,25 +59,21 @@ class EducationGrid extends StatelessWidget {
             crossAxisCount: crossAxisCount,
             crossAxisSpacing: spacing,
             mainAxisSpacing: spacing,
-            childAspectRatio: 1.45,
+            childAspectRatio: 1.5,
           ),
           itemBuilder: (context, index) {
-            return EducationCard(
-              education: education[index],
-            );
+            return EducationCard(education: education[index]);
           },
         );
       },
     );
   }
 }
+
 class EducationCard extends StatelessWidget {
   final EducationModel education;
 
-  const EducationCard({
-    super.key,
-    required this.education,
-  });
+  const EducationCard({super.key, required this.education});
 
   @override
   Widget build(BuildContext context) {
@@ -95,11 +81,8 @@ class EducationCard extends StatelessWidget {
       padding: EdgeInsets.all(30.w),
       decoration: BoxDecoration(
         color: AppColors.educationCard,
-        borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(
-          color: AppColors.educationBorder,
-          width: 1,
-        ),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.educationBorder, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,56 +91,70 @@ class EducationCard extends StatelessWidget {
           CustomText(
             text: _formatYear(education.year),
             textColor: AppColors.educationYear,
-            fontSize: 18.sp,
+            fontSize: 18,
             fontWeight: FontWeight.w600,
             letterSpacing: 1,
           ),
-
-          SizedBox(height: 24.h),
+          SizedBox(height: 6),
 
           // Institute
           CustomText(
             text: education.institute,
             textColor: AppColors.educationInstitute,
-            fontSize: 24.sp,
+            fontSize: 24,
             fontWeight: FontWeight.w800,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-
-          SizedBox(height: 10.h),
+          SizedBox(height: 6),
 
           // Course
           CustomText(
-            text: education.course,
-            textColor: AppColors.educationCourse,
-            fontSize: 18.sp,
+            text: education.level,
+            textColor: AppColors.primary,
+            fontSize: 18,
             fontWeight: FontWeight.w500,
-            maxLines: 2,
+            maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
+          SizedBox(height: 6),
 
-          SizedBox(height: 18.h),
+          // Course
+          CustomText(
+            text: education.course ?? "--",
+            textColor: AppColors.educationCourse,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            overflow: TextOverflow.ellipsis,
+          ),
+          SizedBox(height: 6),
 
           // Address
           CustomText(
             text: education.address,
             textColor: AppColors.educationAddress,
-            fontSize: 15.sp,
+            fontSize: 15,
             fontWeight: FontWeight.w400,
-            maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-
-          const Spacer(),
+          SizedBox(height: 6),
 
           // Percentage
-          CustomText(
-            text: education.percentage,
-            textColor: AppColors.educationPercentage,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w600,
-          ),
+          if (education.gpa != null)
+            CustomText(
+              text: "GPA: ${education.gpa!}",
+              textColor: AppColors.primary,
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+            ),
+
+          if (education.percentage != null)
+            CustomText(
+              text: "${education.percentage} %",
+              textColor: AppColors.primary,
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+            ),
         ],
       ),
     );

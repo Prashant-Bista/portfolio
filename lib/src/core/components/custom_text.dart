@@ -14,7 +14,7 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,style: 
+    return SelectableText(text,style: 
     
     TextStyle(
       letterSpacing: letterSpacing,
@@ -23,8 +23,8 @@ class CustomText extends StatelessWidget {
       height: lineHeight,
       color: textColor
     ),
+    
     maxLines: maxLines,
-    overflow: overflow,
     textAlign: textAlign,
     );
   }

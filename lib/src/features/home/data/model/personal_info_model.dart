@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'personal_info_model.g.dart';
 part 'personal_info_model.freezed.dart';
+
 @freezed 
 abstract class PersonalInfoModel with _$PersonalInfoModel{
   const factory PersonalInfoModel({
@@ -10,6 +11,9 @@ required String email,
 required String photo,
 required String phone,
 required String description,
+
+@JsonKey(name:"tech_stack")
+required  Map<String, dynamic> techStack,
 
 @JsonKey(name:"work_experience")
 

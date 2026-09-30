@@ -1,6 +1,7 @@
 
 import 'package:go_router/go_router.dart';
-import 'package:portfolio/src/core/config/router/router.dart';
+import 'package:portfolio/src/core/config/router/routes.dart';
+import 'package:portfolio/src/features/experience/presentation/screens/experience_screen.dart';
 import 'package:portfolio/src/features/home/presentation/screens/home_screen.dart';
 
 class AppRouterConfig {
@@ -13,6 +14,14 @@ class AppRouterConfig {
         builder: (context, state) {
           
           return HomeScreen();
+        },
+      ),
+       GoRoute(
+        path: Routes.experience.path,
+        name: Routes.experience.name,
+        builder: (context, state) {
+          
+          return ExperienceScreen();
         },
       ),
     ]

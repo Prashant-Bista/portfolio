@@ -13,12 +13,13 @@ class EducationDataSource {
   EducationDataSource({required this.firestore});
 
   Future<List<EducationModel>> getEducation()async{
- final snapshot  = await firestore.collection("Education").get();
+ final snapshot  = await firestore.collection("education").get();
 
     List<EducationModel> educations=snapshot.docs.map((doc){
       return EducationModel.fromJson(doc.data());
     }).toList();
   
-    return educations;
+     educations.sort((a,b)=>a.order.compareTo(b.order));
+     return educations;
   }
 }
