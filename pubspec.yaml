@@ -44,6 +44,8 @@ dependencies:
   get_it: ^9.3.0
   dartz: ^0.10.1
   riverpod_annotation: ^4.0.2
+  url_launcher: ^6.3.3
+  flutter_svg: ^2.3.0
 
 
 dev_dependencies:

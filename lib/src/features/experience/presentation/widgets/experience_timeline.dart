@@ -98,7 +98,7 @@ class _ExperienceContent extends StatelessWidget {
       children: [
         CustomText(
           text: experience.role,
-          textColor: AppColors.primaryText,
+          textColor: AppColors.lightText,
           fontSize: 30,
           fontWeight: FontWeight.w700,
           letterSpacing: -0.5,

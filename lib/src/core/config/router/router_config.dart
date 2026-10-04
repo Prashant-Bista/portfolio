@@ -1,8 +1,10 @@
 
 import 'package:go_router/go_router.dart';
 import 'package:portfolio/src/core/config/router/routes.dart';
+import 'package:portfolio/src/features/contact/presentation/screens/contact_screen.dart';
 import 'package:portfolio/src/features/experience/presentation/screens/experience_screen.dart';
 import 'package:portfolio/src/features/home/presentation/screens/home_screen.dart';
+import 'package:portfolio/src/features/projects/presentation/screens/project_screen.dart';
 
 class AppRouterConfig {
   static final GoRouter router = GoRouter(
@@ -22,6 +24,22 @@ class AppRouterConfig {
         builder: (context, state) {
           
           return ExperienceScreen();
+        },
+      ),
+       GoRoute(
+        path: Routes.projects.path,
+        name: Routes.projects.name,
+        builder: (context, state) {
+          
+          return ProjectScreen();
+        },
+      ),
+       GoRoute(
+        path: Routes.contact.path,
+        name: Routes.contact.name,
+        builder: (context, state) {
+          
+          return ContactScreen();
         },
       ),
     ]

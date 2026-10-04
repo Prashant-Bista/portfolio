@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:portfolio/src/core/components/custom_appbar.dart';
 import 'package:portfolio/src/core/components/custom_button.dart';
 import 'package:portfolio/src/core/components/highlighted_label.dart';
 import 'package:portfolio/src/core/components/image_component.dart';
+import 'package:portfolio/src/core/config/router/routes.dart';
 import 'package:portfolio/src/core/constants/app_images.dart';
 import 'package:portfolio/src/core/constants/app_strings.dart';
 import 'package:portfolio/src/features/home/presentation/widgets/contact_cta_section.dart';
@@ -16,16 +18,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor:
-          Theme.of(context).colorScheme.surface,
-      appBar: null,
-      body: Column(
-        children: [
-          CustomAppBar(),
-
-          Expanded(
-            child: SingleChildScrollView(
+    return CustomScaffold(
+      body: SingleChildScrollView(
               child: Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(
@@ -56,8 +50,6 @@ class HomeScreen extends StatelessWidget {
                 ),
                   ),
                 ),
-              ),
-            ])
           );
         
   }
@@ -113,7 +105,9 @@ class _HeroContent extends StatelessWidget {
               icon: Icons.arrow_forward,
               fontSize: 12,
               padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 8.w),
-              onPressed: () {},
+              onPressed: () {
+                context.goNamed(Routes.projects.name);
+              },
             ),
 
         const SizedBox(height: 25),

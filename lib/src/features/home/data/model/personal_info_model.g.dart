@@ -14,6 +14,10 @@ _PersonalInfoModel _$PersonalInfoModelFromJson(Map<String, dynamic> json) =>
       photo: json['photo'] as String,
       phone: json['phone'] as String,
       description: json['description'] as String,
+      facebook: json['facebook'] as String,
+      github: json['github'] as String,
+      instagram: json['instagram'] as String,
+      linkedin: json['linkedin'] as String,
       techStack: json['tech_stack'] as Map<String, dynamic>,
       workExperience: json['work_experience'] as String,
     );
@@ -26,6 +30,10 @@ Map<String, dynamic> _$PersonalInfoModelToJson(_PersonalInfoModel instance) =>
       'photo': instance.photo,
       'phone': instance.phone,
       'description': instance.description,
+      'facebook': instance.facebook,
+      'github': instance.github,
+      'instagram': instance.instagram,
+      'linkedin': instance.linkedin,
       'tech_stack': instance.techStack,
       'work_experience': instance.workExperience,
     };

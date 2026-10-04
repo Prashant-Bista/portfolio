@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:portfolio/src/core/components/custom_button.dart';
+import 'package:portfolio/src/core/config/router/routes.dart';
 import 'package:portfolio/src/core/constants/app_strings.dart';
+import 'package:portfolio/src/core/providers/current_page_provider.dart';
 
 
-class ContactCtaSection extends StatelessWidget {
+class ContactCtaSection extends ConsumerWidget {
   const ContactCtaSection({
     super.key,
     this.onPressed,
@@ -13,10 +17,10 @@ class ContactCtaSection extends StatelessWidget {
   final VoidCallback? onPressed;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-
+    final currentpageNotifier = ref.read(currentPageProvider.notifier);
     return DecoratedBox(decoration:  BoxDecoration(
         color: colors.surfaceContainer,
         borderRadius: BorderRadius.circular(24.r),
@@ -52,7 +56,10 @@ class ContactCtaSection extends StatelessWidget {
                 CustomButton(
                   label: AppStrings.startConversation,
                   icon: Icons.arrow_outward_rounded,
-                  onPressed: onPressed,
+                  onPressed: (){
+                    currentpageNotifier.changeCurrentPage(Routes.contact.name);
+                    context.goNamed(Routes.contact.name);
+                  },
                   padding: EdgeInsets.symmetric(
                     horizontal: 28.w,
                     vertical: 15.h,

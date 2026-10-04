@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:portfolio/src/core/components/common_grey_card.dart';
 import 'package:portfolio/src/core/components/highlighted_label.dart';
 
 
@@ -18,18 +19,10 @@ class TechStackCard extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
+    return CommonGreyCard(
       padding: EdgeInsets.symmetric(
         horizontal: 24.w,
         vertical: 24.h,
-      ),
-      decoration: BoxDecoration(
-        color: colors.surfaceContainer,
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(
-          color: colors.outlineVariant,
-          width: 1.w,
-        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

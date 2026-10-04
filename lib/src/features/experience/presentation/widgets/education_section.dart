@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:portfolio/src/core/components/common_grey_card.dart';
 import 'package:portfolio/src/core/components/custom_text.dart';
 import 'package:portfolio/src/core/constants/app_colors.dart';
 import 'package:portfolio/src/core/constants/app_strings.dart';
@@ -19,7 +20,7 @@ class EducationSection extends StatelessWidget {
         children: [
           CustomText(
             text: AppStrings.educationHeader,
-            textColor: AppColors.primaryText,
+            textColor: AppColors.lightText,
             fontSize: 18,
             fontWeight: FontWeight.w700,
             letterSpacing: 1.5,
@@ -41,32 +42,10 @@ class EducationGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final crossAxisCount = constraints.maxWidth >= 1200
-            ? 3
-            : constraints.maxWidth >= 700
-            ? 2
-            : 1;
-
-        final spacing = 20.w;
-
-        return GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: education.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            crossAxisSpacing: spacing,
-            mainAxisSpacing: spacing,
-            childAspectRatio: 1.5,
-          ),
-          itemBuilder: (context, index) {
-            return EducationCard(education: education[index]);
-          },
-        );
-      },
-    );
+    return Wrap(
+      spacing: 20,
+      runSpacing: 20,
+      children: List.generate(education.length, (index)=>EducationCard(education: education[index])),);
   }
 }
 
@@ -77,36 +56,32 @@ class EducationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(30.w),
-      decoration: BoxDecoration(
-        color: AppColors.educationCard,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.educationBorder, width: 1),
-      ),
+    return CommonGreyCard( 
+      height: 300,
+      width: 500,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Year
           CustomText(
             text: _formatYear(education.year),
-            textColor: AppColors.educationYear,
+            textColor: AppColors.card,
             fontSize: 18,
             fontWeight: FontWeight.w600,
             letterSpacing: 1,
           ),
-          SizedBox(height: 6),
+          SizedBox(height: 6.h),
 
           // Institute
           CustomText(
             text: education.institute,
-            textColor: AppColors.educationInstitute,
+            textColor: AppColors.lightText,
             fontSize: 24,
             fontWeight: FontWeight.w800,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: 6),
+          SizedBox(height: 6.h),
 
           // Course
           CustomText(
@@ -117,7 +92,7 @@ class EducationCard extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: 6),
+          SizedBox(height: 6.h),
 
           // Course
           CustomText(
@@ -127,7 +102,7 @@ class EducationCard extends StatelessWidget {
             fontWeight: FontWeight.w500,
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: 6),
+          SizedBox(height: 6.h),
 
           // Address
           CustomText(
@@ -137,7 +112,7 @@ class EducationCard extends StatelessWidget {
             fontWeight: FontWeight.w400,
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: 6),
+          SizedBox(height: 6.h),
 
           // Percentage
           if (education.gpa != null)

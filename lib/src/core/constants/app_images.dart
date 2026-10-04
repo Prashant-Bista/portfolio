@@ -12,5 +12,14 @@ class AppImages {
   
   static const String flutterLogo = 'assets/images/flutter_white.svg';
     static const String heroShowcase = 'assets/images/hero_showcase.png';
+    static const String projectPlaceholder ="assets/images/project_placeholder.jpg"; 
+      static const String facebook = 'assets/images/facebook.svg';
+
+  static const String instagram = 'assets/images/instagram.svg';
+
+  static const String linkedin = 'assets/images/linkedin.svg';
+
+  static const String github= 'assets/images/flutter_whgithubite.svg';
+
 
 }

@@ -1,34 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:portfolio/src/core/components/error_widget.dart';
 import 'package:portfolio/src/core/components/highlighted_label.dart';
+import 'package:portfolio/src/core/components/loading_widget.dart';
 import 'package:portfolio/src/core/constants/app_strings.dart';
+import 'package:portfolio/src/features/home/data/model/personal_info_model.dart';
+import 'package:portfolio/src/features/home/presentation/provider/get_personal_details_provider.dart';
 import 'package:portfolio/src/features/home/presentation/widgets/tech_stack_card.dart';
 
-
-class TechStackSection extends StatelessWidget {
-  const TechStackSection({
-    super.key,
-  });
+class TechStackSection extends ConsumerWidget {
+  const TechStackSection({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final personalInfo = ref.watch(getPersonalDetailsProvider);
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 700;
 
         return Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 80.h,
-          ),
+          padding: EdgeInsets.symmetric(vertical: 80.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _SectionHeader(),
 
               SizedBox(height: 35.h),
-
-              _TechGrid(
-                isMobile: isMobile,
+              personalInfo.when(
+                data: (PersonalInfoModel data) =>
+                    _TechGrid(isMobile: isMobile, stack: data.techStack),
+                error: (Object error, StackTrace stackTrace) =>
+                    AppErrorWidget(message: error.toString()),
+                loading: () => AppLoadingWidget(),
               ),
             ],
           ),
@@ -37,6 +41,7 @@ class TechStackSection extends StatelessWidget {
     );
   }
 }
+
 class _SectionHeader extends StatelessWidget {
   const _SectionHeader();
 
@@ -50,13 +55,9 @@ class _SectionHeader extends StatelessWidget {
       children: [
         LabelChip(
           label: AppStrings.techStack.toUpperCase(),
-          backgroundColor:
-              colors.primary.withValues(alpha: 0.10),
+          backgroundColor: colors.primary.withValues(alpha: 0.10),
           textColor: colors.primary,
-          padding: EdgeInsets.symmetric(
-            horizontal: 14.w,
-            vertical: 8.h,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
           borderRadius: BorderRadius.circular(20.r),
           icon: Container(
             width: 6.w,
@@ -71,8 +72,7 @@ class _SectionHeader extends StatelessWidget {
         SizedBox(height: 18.h),
 
         Text(
-          AppStrings.technologiesIWorkWith
-              .toUpperCase(),
+          AppStrings.technologiesIWorkWith.toUpperCase(),
           style: textTheme.displaySmall?.copyWith(
             fontSize: 44.sp,
             height: 1.05,
@@ -84,21 +84,28 @@ class _SectionHeader extends StatelessWidget {
     );
   }
 }
+
 class _TechGrid extends StatelessWidget {
-  const _TechGrid({
-    required this.isMobile,
-  });
+  const _TechGrid({required this.isMobile, required this.stack});
 
   final bool isMobile;
+  final Map<String, dynamic> stack;
 
   @override
   Widget build(BuildContext context) {
-    final cards = [
+    final cards = stack.entries
+        .map(
+          (entry) => TechStackCard(
+            title: entry.key,
+            technologies: List<String>.from(entry.value as List),
+          ),
+        )
+        .toList();
+
+    [
       const TechStackCard(
         title: AppStrings.mobileDevelopment,
-        technologies: [
-          AppStrings.flutter,
-        ],
+        technologies: [AppStrings.flutter],
       ),
 
       const TechStackCard(
@@ -123,9 +130,7 @@ class _TechGrid extends StatelessWidget {
 
       const TechStackCard(
         title: AppStrings.devOpsAndCiCd,
-        technologies: [
-          AppStrings.githubActions,
-        ],
+        technologies: [AppStrings.githubActions],
       ),
 
       const TechStackCard(
@@ -145,9 +150,7 @@ class _TechGrid extends StatelessWidget {
         children: cards
             .map(
               (card) => Padding(
-                padding: EdgeInsets.only(
-                  bottom: 12.h,
-                ),
+                padding: EdgeInsets.only(bottom: 12.h),
                 child: card,
               ),
             )
@@ -159,19 +162,13 @@ class _TechGrid extends StatelessWidget {
       builder: (context, constraints) {
         final width = constraints.maxWidth;
 
-        final cardWidth =
-            (width - 24.w) / 3;
+        final cardWidth = (width - 24.w) / 3;
 
         return Wrap(
           spacing: 12.w,
           runSpacing: 12.h,
           children: cards
-              .map(
-                (card) => SizedBox(
-                  width: cardWidth,
-                  child: card,
-                ),
-              )
+              .map((card) => SizedBox(width: cardWidth, child: card))
               .toList(),
         );
       },

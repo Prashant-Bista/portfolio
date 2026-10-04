@@ -11,6 +11,10 @@ required String email,
 required String photo,
 required String phone,
 required String description,
+required String facebook,
+required String github,
+required String instagram,
+required String linkedin,
 
 @JsonKey(name:"tech_stack")
 required  Map<String, dynamic> techStack,

@@ -14,18 +14,38 @@ class ExperienceScreen extends ConsumerWidget {
   const ExperienceScreen({super.key});
 
   @override
-  Widget build(BuildContext contex,WidgetRef ref) {
+  Widget build(BuildContext contex, WidgetRef ref) {
     final experience = ref.watch(getExperienceProvider);
     final education = ref.watch(getEducationProvider);
-    return Scaffold(
+    return CustomScaffold(
       body: Column(
-      children: [
-        CustomAppBar(),
-        Expanded(child: SingleChildScrollView(child: Column(children: [experience.when(data: (List<ExperienceModel> data) =>ExperienceTimeline(experiences: data), error: (Object error, StackTrace stackTrace) =>AppErrorWidget(message: error.toString(),), loading: () =>AppLoadingWidget()),
-      education.when(data: (List<EducationModel> data) =>EducationSection(education: data), error: (Object error, StackTrace stackTrace) =>AppErrorWidget(message: error.toString(),), loading: () =>AppLoadingWidget())
-      ],)))
-        ,
-      ],
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
+                child: Column(
+                  children: [
+                    experience.when(
+                      data: (List<ExperienceModel> data) =>
+                          ExperienceTimeline(experiences: data),
+                      error: (Object error, StackTrace stackTrace) =>
+                          AppErrorWidget(message: error.toString()),
+                      loading: () => AppLoadingWidget(),
+                    ),
+                    education.when(
+                      data: (List<EducationModel> data) =>
+                          EducationSection(education: data),
+                      error: (Object error, StackTrace stackTrace) =>
+                          AppErrorWidget(message: error.toString()),
+                      loading: () => AppLoadingWidget(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

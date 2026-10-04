@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:portfolio/src/core/components/common_grey_card.dart';
 import 'package:portfolio/src/core/components/error_widget.dart';
 import 'package:portfolio/src/core/components/highlighted_label.dart';
 import 'package:portfolio/src/core/components/loading_widget.dart';
@@ -236,19 +237,9 @@ class _InfoItem extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 16.w,
-        vertical: 15.h,
-      ),
-      decoration: BoxDecoration(
-        color: colors.surfaceContainer,
-        borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(
-          color: colors.outlineVariant,
-          width: 1.w,
-        ),
-      ),
+    return CommonGreyCard(
+      padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h) ,
+      borderRadius: 12,
       child: Row(
         children: [
           HighlightedIcon(
@@ -267,7 +258,7 @@ class _InfoItem extends StatelessWidget {
                   CrossAxisAlignment.start,
               children: [
                 Text(
-                  label,
+                  label.toUpperCase(),
                   style: textTheme.labelSmall?.copyWith(
                     fontSize: 8,
                     letterSpacing: 1.0,

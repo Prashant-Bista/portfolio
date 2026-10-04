@@ -49,11 +49,11 @@ class AppStrings {
   static const String dateOfBirth = 'February 15, 2002';
   static const String workExperience = '1.5+ years';
 
-  static const String addressLabel = 'ADDRESS';
-  static const String phoneLabel = 'PHONE';
-  static const String emailLabel = 'EMAIL';
-  static const String dateOfBirthLabel = 'DATE OF BIRTH';
-  static const String workExperienceLabel = 'WORK EXPERIENCE';
+  static const String addressLabel = 'Address';
+  static const String phoneLabel = 'Phone';
+  static const String emailLabel = 'Email';
+  static const String dateOfBirthLabel = 'Date of Birth';
+  static const String workExperienceLabel = 'Work Experience';
 
   static const String introductionDescription =
       'I am a mobile product developer focused on building polished, '
@@ -79,6 +79,13 @@ class AppStrings {
 
   static const String developmentTools =
       'DEVELOPMENT TOOLS';
+
+      static const googlePlay = 'Google Play';
+  static const appStore = 'App Store';
+  static const github = 'GitHub';
+  static const facebook = 'Facebook';
+  static const instagram = 'Instagram';
+  static const linkedin = 'LinkedIn';
 
   // Technologies
   static const String flutter = 'Flutter';
@@ -114,4 +121,52 @@ class AppStrings {
       'Start a conversation';
 
   static const educationHeader = "Education and Certification";
+   static const contactEyebrow = "LET'S CONNECT";
+
+  static const contactTitle =
+      'Have a project in mind? Let’s build something useful.';
+
+  static const contactDescription =
+      'Tell me a little about what you are building, '
+      'and I’ll get back to you with the next step.';
+
+  static const contactFormTitle =
+      'Tell me what you need.';
+
+  static const contactFormDescription =
+      'Fill in the details below and send me a message.';
+
+  static const name = 'Name';
+  static const subject = 'Subject';
+  static const message = 'Message';
+
+  static const nameHint = 'Your name';
+  static const emailHint = 'you@example.com';
+  static const subjectHint = 'What would you like to discuss?';
+  static const messageHint = 'Tell me about your project or idea...';
+  static const contactHint = 'Phone number or another way to reach you';
+
+  static const requiredField = 'This field is required';
+  static const invalidEmail = 'Enter a valid email address';
+
+  static const sendMessage = 'Send message';
+
+  static const contactPrivacy =
+      'Your details are only used to respond to your message.';
+
+  static const preferDirectContact =
+      'Prefer direct contact?';
+
+  static const directContactDescription =
+      'You can also reach me directly using the contact details below.';
+
+  static const letsTalk = "Let's talk";
+
+  static const letsTalkDescription =
+      'Have a question, idea, or opportunity? '
+      'Feel free to get in touch.';
+
+  static const portfolioEmail = 'your@email.com';
+
+  static const portfolioContact = '';
 }

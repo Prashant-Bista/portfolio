@@ -1,37 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:portfolio/src/core/config/router/routes.dart';
+import 'package:portfolio/src/core/providers/current_page_provider.dart';
 
 import '../../core/constants/app_strings.dart';
 import 'custom_button.dart';
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
-    super.key,
-  
-  });
-
-
+class CustomScaffold extends StatelessWidget {
+  final Widget body;
+  const CustomScaffold({super.key, required this.body});
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: CustomAppBar(),
+      body: body,
+    );
+  }
+}
+
+class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
+  const CustomAppBar({super.key});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 70);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final page = ref.watch(currentPageProvider);
+    final pageNotifier = ref.watch(currentPageProvider.notifier);
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     return Container(
       height: 120,
       decoration: BoxDecoration(
         color: colors.surface,
-        border: Border(
-          bottom: BorderSide(
-            color: colors.outlineVariant,
-          ),
-        ),
+        border: Border(bottom: BorderSide(color: colors.outlineVariant)),
       ),
       child: Padding(
-        padding:  EdgeInsets.symmetric(
-          horizontal: 60.w,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 60.w),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: SizedBox(
@@ -42,9 +52,9 @@ class CustomAppBar extends StatelessWidget {
                   children: [
                     // Logo
                     _buildLogo(context),
-                
-                     SizedBox(width: 14.w),
-                
+
+                    SizedBox(width: 14.w),
+
                     // Name
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -57,64 +67,65 @@ class CustomAppBar extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 2),
-                        Text(
-                          AppStrings.appRole,
-                          style: textTheme.labelSmall
-                          
-                        ),
-                        
-                       
+                        Text(AppStrings.appRole, style: textTheme.labelSmall),
                       ],
                     ),
-                
-                const Spacer(),
+
+                    const Spacer(),
                     // Navigation
                     _NavItem(
                       label: AppStrings.home,
-                      isSelected: true,
-                      onTap: (){
-                                                context.goNamed(Routes.home.name);
-
+                      isSelected: Routes.home.name == page,
+                      onTap: () {
+                        pageNotifier.changeCurrentPage(Routes.home.name);
+                        context.goNamed(Routes.home.name);
                       },
                     ),
                     _NavItem(
                       label: AppStrings.projects,
-                      onTap: (){},
+                      isSelected: Routes.projects.name == page,
+                      onTap: () {
+                        pageNotifier.changeCurrentPage(Routes.projects.name);
+                        context.goNamed(Routes.projects.name);
+                      },
                     ),
-                    _NavItem(
-                      label: AppStrings.blog,
-                      onTap: (){},
-                    ),
+                    _NavItem(label: AppStrings.blog, onTap: () {}),
                     _NavItem(
                       label: AppStrings.experience,
-                      onTap: (){
+                      isSelected: Routes.experience.name == page,
+                      onTap: () {
+                        pageNotifier.changeCurrentPage(Routes.experience.name);
                         context.goNamed(Routes.experience.name);
                       },
                     ),
                     _NavItem(
                       label: AppStrings.contact,
-                      onTap: (){},
+                      isSelected: Routes.contact.name == page,
+                      onTap: () {
+                        pageNotifier.changeCurrentPage(Routes.contact.name);
+                        context.goNamed(Routes.contact.name);
+                      },
                     ),
-                
-                   
                   ],
                 ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: CustomButton(
-                                    
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: CustomButton(
                       label: AppStrings.startAProject,
                       icon: Icons.north_east,
-                      onPressed: (){},
-                      padding:  EdgeInsets.symmetric(
+                      onPressed: () {
+                        pageNotifier.changeCurrentPage(Routes.contact.name);
+                        context.goNamed(Routes.contact.name);
+                      },
+                      padding: EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 12,
                       ),
-                                      ),
                     ),
                   ),
+                ),
               ],
             ),
           ),
@@ -134,21 +145,13 @@ class CustomAppBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       alignment: Alignment.center,
-      child: Icon(
-        Icons.code,
-        size: 20,
-        color: colors.onPrimary,
-      ),
+      child: Icon(Icons.code, size: 20, color: colors.onPrimary),
     );
   }
 }
 
 class _NavItem extends StatelessWidget {
-  const _NavItem({
-    required this.label,
-    this.isSelected = false,
-    this.onTap,
-  });
+  const _NavItem({required this.label, this.isSelected = false, this.onTap});
 
   final String label;
   final bool isSelected;
@@ -160,21 +163,16 @@ class _NavItem extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     return InkWell(
       onTap: onTap,
-      
+
       child: Padding(
-        padding:  EdgeInsets.symmetric(
-          horizontal: 18.w,
-          vertical: 27.h,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 27.h),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               label,
               style: textTheme.bodySmall?.copyWith(
-                color: isSelected
-                    ? colors.onSurface
-                    : colors.onSurfaceVariant,
+                color: isSelected ? colors.onSurface : colors.onSurfaceVariant,
               ),
             ),
 
