@@ -20,7 +20,7 @@ class ContactCtaSection extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final currentpageNotifier = ref.read(currentPageProvider.notifier);
+    final currentpageNotifier = ref.read(currentPageProvider(context).notifier);
     return DecoratedBox(decoration:  BoxDecoration(
         color: colors.surfaceContainer,
         borderRadius: BorderRadius.circular(24.r),

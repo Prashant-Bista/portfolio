@@ -4,6 +4,7 @@ import 'package:portfolio/src/core/config/router/routes.dart';
 import 'package:portfolio/src/features/contact/presentation/screens/contact_screen.dart';
 import 'package:portfolio/src/features/experience/presentation/screens/experience_screen.dart';
 import 'package:portfolio/src/features/home/presentation/screens/home_screen.dart';
+import 'package:portfolio/src/features/projects/presentation/screens/case_study_screen.dart';
 import 'package:portfolio/src/features/projects/presentation/screens/project_screen.dart';
 
 class AppRouterConfig {
@@ -40,6 +41,14 @@ class AppRouterConfig {
         builder: (context, state) {
           
           return ContactScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.caseStudy.path,
+        name: Routes.caseStudy.name,
+        builder: (context, state) {
+          final data = state.extra as Map<String,dynamic>;
+          return CaseStudyScreen(projectName: data["name"], caseStudy: data["case_study"],);
         },
       ),
     ]

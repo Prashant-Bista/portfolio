@@ -5,6 +5,7 @@ import 'package:portfolio/src/core/components/custom_appbar.dart';
 import 'package:portfolio/src/core/components/custom_button.dart';
 import 'package:portfolio/src/core/components/highlighted_label.dart';
 import 'package:portfolio/src/core/components/image_component.dart';
+import 'package:portfolio/src/core/components/portfolio_footer.dart';
 import 'package:portfolio/src/core/config/router/routes.dart';
 import 'package:portfolio/src/core/constants/app_images.dart';
 import 'package:portfolio/src/core/constants/app_strings.dart';
@@ -44,6 +45,7 @@ class HomeScreen extends StatelessWidget {
                         ContactCtaSection(
                           onPressed: () {},
                         ),
+                        // PortfolioFooter(githubUrl: , linkedinUrl: linkedinUrl)
                       ],
                     ),
                   ),

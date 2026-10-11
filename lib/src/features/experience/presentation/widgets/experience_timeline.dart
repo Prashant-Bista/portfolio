@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/src/core/components/custom_text.dart';
 import 'package:portfolio/src/core/constants/app_colors.dart';
+import 'package:portfolio/src/core/utils/month_converter.dart';
 import 'package:portfolio/src/features/experience/data/model/experience_model.dart';
 
 class ExperienceTimeline extends StatelessWidget {
@@ -49,7 +50,7 @@ class ExperienceTimelineItem extends StatelessWidget {
           SizedBox(width: 48.w),
 
           SizedBox(
-            width: 200,
+            width: 225,
             child: CustomText(
               text: _formatPeriod(
                 experience.start ?? DateTime(1999),
@@ -78,9 +79,11 @@ class ExperienceTimelineItem extends StatelessWidget {
   }
 
   String _formatPeriod(DateTime start, DateTime? end) {
-    final startText = start.year.toString();
+    final startText = "${monthConverter(start.month)} ${start.year.toString()}";
 
-    final endText = end == null ? 'Present' : end.year.toString();
+    final endText = end == null
+        ? 'Present'
+        : "${monthConverter(end.month)} ${end.year.toString()}";
 
     return '$startText — $endText';
   }
@@ -99,7 +102,7 @@ class _ExperienceContent extends StatelessWidget {
         CustomText(
           text: experience.role,
           textColor: AppColors.lightText,
-          fontSize: 30,
+          fontSize: 24,
           fontWeight: FontWeight.w700,
           letterSpacing: -0.5,
         ),
@@ -108,12 +111,18 @@ class _ExperienceContent extends StatelessWidget {
 
         CustomText(
           text: experience.company,
-          textColor: AppColors.secondaryText,
-          fontSize: 14,
+          textColor: AppColors.primary,
+          fontSize: 16,
           fontWeight: FontWeight.w400,
           letterSpacing: 1.2,
           maxLines: null,
           lineHeight: null,
+        ),
+        SizedBox(height: 16.h),
+
+        ...List.generate(
+          experience.description.length,
+          (index) => Text("• ${experience.description[index]}"),
         ),
 
         if (experience.tags.isNotEmpty) ...[

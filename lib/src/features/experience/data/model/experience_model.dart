@@ -6,6 +6,7 @@ part 'experience_model.freezed.dart';
 abstract class ExperienceModel with _$ExperienceModel{
   const factory ExperienceModel({
 required String company,
+required List<String> description,
 required String role,
 @TimestampConverter()
  DateTime? end,

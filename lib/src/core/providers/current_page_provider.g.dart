@@ -10,22 +10,29 @@ part of 'current_page_provider.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(CurrentPage)
-final currentPageProvider = CurrentPageProvider._();
+final currentPageProvider = CurrentPageFamily._();
 
 final class CurrentPageProvider extends $NotifierProvider<CurrentPage, String> {
-  CurrentPageProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'currentPageProvider',
-        isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  CurrentPageProvider._({
+    required CurrentPageFamily super.from,
+    required BuildContext super.argument,
+  }) : super(
+         retry: null,
+         name: r'currentPageProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$currentPageHash();
+
+  @override
+  String toString() {
+    return r'currentPageProvider'
+        ''
+        '($argument)';
+  }
 
   @$internal
   @override
@@ -38,12 +45,50 @@ final class CurrentPageProvider extends $NotifierProvider<CurrentPage, String> {
       providerOverride: $SyncValueProvider<String>(value),
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CurrentPageProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
-String _$currentPageHash() => r'9621743e90b131dc692a7250de362e350bbf458c';
+String _$currentPageHash() => r'2f3b5a5ef00773dc4a9e7c66726451c5798db3b3';
+
+final class CurrentPageFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          CurrentPage,
+          String,
+          String,
+          String,
+          BuildContext
+        > {
+  CurrentPageFamily._()
+    : super(
+        retry: null,
+        name: r'currentPageProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: false,
+      );
+
+  CurrentPageProvider call(BuildContext context) =>
+      CurrentPageProvider._(argument: context, from: this);
+
+  @override
+  String toString() => r'currentPageProvider';
+}
 
 abstract class _$CurrentPage extends $Notifier<String> {
-  String build();
+  late final _$args = ref.$arg as BuildContext;
+  BuildContext get context => _$args;
+
+  String build(BuildContext context);
   @$mustCallSuper
   @override
   void runBuild() {
@@ -56,6 +101,6 @@ abstract class _$CurrentPage extends $Notifier<String> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, build);
+    element.handleCreate(ref, () => build(_$args));
   }
 }

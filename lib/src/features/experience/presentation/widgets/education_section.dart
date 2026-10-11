@@ -58,31 +58,34 @@ class EducationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonGreyCard( 
       height: 300,
-      width: 500,
+      width: 350,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Year
-          CustomText(
-            text: _formatYear(education.year),
-            textColor: AppColors.card,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 1,
+         
+          // Institute
+          SizedBox(
+            height: 75,
+            child: CustomText(
+              text: education.institute,
+              textColor: AppColors.lightText,
+              fontSize: 24,
+              isSelectable: false,
+              fontWeight: FontWeight.w800,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           SizedBox(height: 6.h),
-
-          // Institute
-          CustomText(
-            text: education.institute,
-            textColor: AppColors.lightText,
-            fontSize: 24,
-            fontWeight: FontWeight.w800,
-            maxLines: 2,
+  CustomText(
+            text: education.address,
+            textColor: AppColors.educationAddress,
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
             overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: 6.h),
-
           // Course
           CustomText(
             text: education.level,
@@ -103,16 +106,17 @@ class EducationCard extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: 6.h),
-
-          // Address
-          CustomText(
-            text: education.address,
-            textColor: AppColors.educationAddress,
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            overflow: TextOverflow.ellipsis,
+if(education.year!=null)...[ CustomText(
+            text:education.year!,
+            textColor: AppColors.primary,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1,
           ),
           SizedBox(height: 6.h),
+         ],
+          // Address
+        
 
           // Percentage
           if (education.gpa != null)

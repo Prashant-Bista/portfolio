@@ -32,7 +32,7 @@ class TechStackSection extends ConsumerWidget {
                     _TechGrid(isMobile: isMobile, stack: data.techStack),
                 error: (Object error, StackTrace stackTrace) =>
                     AppErrorWidget(message: error.toString()),
-                loading: () => AppLoadingWidget(),
+                loading: () => ResponsiveShimmer(height: 200.h,),
               ),
             ],
           ),

@@ -10,7 +10,7 @@ _EducationModel _$EducationModelFromJson(Map<String, dynamic> json) =>
     _EducationModel(
       course: json['course'] as String?,
       address: json['address'] as String,
-      year: const TimestampConverter().fromJson(json['year']),
+      year: json['year'] as String?,
       order: (json['order'] as num).toInt(),
       institute: json['institute'] as String,
       level: json['level'] as String,
@@ -22,7 +22,7 @@ Map<String, dynamic> _$EducationModelToJson(_EducationModel instance) =>
     <String, dynamic>{
       'course': instance.course,
       'address': instance.address,
-      'year': const TimestampConverter().toJson(instance.year),
+      'year': instance.year,
       'order': instance.order,
       'institute': instance.institute,
       'level': instance.level,

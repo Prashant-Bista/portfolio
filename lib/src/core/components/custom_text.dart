@@ -7,26 +7,38 @@ class CustomText extends StatelessWidget {
   final double? fontSize;
   final double? letterSpacing;
   final TextAlign? textAlign;
+  final bool isSelectable;
   final FontWeight? fontWeight;
   final double? lineHeight; 
   final Color? textColor;
-  const CustomText({super.key, required this.text,  this.maxLines, this.fontSize,  this.lineHeight, this.letterSpacing, this.fontWeight, this.textAlign, this.textColor, this.overflow});
+  const CustomText({super.key, required this.text,this.isSelectable=true,  this.maxLines, this.fontSize,  this.lineHeight, this.letterSpacing, this.fontWeight, this.textAlign, this.textColor, this.overflow});
 
   @override
   Widget build(BuildContext context) {
-    return SelectableText(text,style: 
-    
-    TextStyle(
+
+    final textStyle  =TextStyle(
       letterSpacing: letterSpacing,
       fontSize: fontSize,
       fontWeight: fontWeight,
       height: lineHeight,
       color: textColor
-    ),
-    
-    maxLines: maxLines,
-    textAlign: textAlign,
     );
+    if(isSelectable){
+      return SelectableText(text,style: 
+    
+    
+    textStyle,
+    maxLines: maxLines,
+    textAlign: textAlign);
+    }
+    else{
+      return Text(text,style: 
+    
+    
+    textStyle,
+    maxLines: maxLines,
+    textAlign: textAlign);
+    }
   }
 }
 

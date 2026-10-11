@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$EducationModel {
 
- String? get course; String get address;@TimestampConverter() DateTime? get year; int get order; String get institute; String get level; String? get percentage;@JsonKey(name: "GPA") String? get gpa;
+ String? get course; String get address; String? get year; int get order; String get institute; String get level; String? get percentage;@JsonKey(name: "GPA") String? get gpa;
 /// Create a copy of EducationModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $EducationModelCopyWith<$Res>  {
   factory $EducationModelCopyWith(EducationModel value, $Res Function(EducationModel) _then) = _$EducationModelCopyWithImpl;
 @useResult
 $Res call({
- String? course, String address,@TimestampConverter() DateTime? year, int order, String institute, String level, String? percentage,@JsonKey(name: "GPA") String? gpa
+ String? course, String address, String? year, int order, String institute, String level, String? percentage,@JsonKey(name: "GPA") String? gpa
 });
 
 
@@ -70,7 +70,7 @@ class _$EducationModelCopyWithImpl<$Res>
 course: freezed == course ? _self.course : course // ignore: cast_nullable_to_non_nullable
 as String?,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String,year: freezed == year ? _self.year : year // ignore: cast_nullable_to_non_nullable
-as DateTime?,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
+as String?,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
 as int,institute: null == institute ? _self.institute : institute // ignore: cast_nullable_to_non_nullable
 as String,level: null == level ? _self.level : level // ignore: cast_nullable_to_non_nullable
 as String,percentage: freezed == percentage ? _self.percentage : percentage // ignore: cast_nullable_to_non_nullable
@@ -160,7 +160,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? course,  String address, @TimestampConverter()  DateTime? year,  int order,  String institute,  String level,  String? percentage, @JsonKey(name: "GPA")  String? gpa)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? course,  String address,  String? year,  int order,  String institute,  String level,  String? percentage, @JsonKey(name: "GPA")  String? gpa)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _EducationModel() when $default != null:
 return $default(_that.course,_that.address,_that.year,_that.order,_that.institute,_that.level,_that.percentage,_that.gpa);case _:
@@ -181,7 +181,7 @@ return $default(_that.course,_that.address,_that.year,_that.order,_that.institut
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? course,  String address, @TimestampConverter()  DateTime? year,  int order,  String institute,  String level,  String? percentage, @JsonKey(name: "GPA")  String? gpa)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? course,  String address,  String? year,  int order,  String institute,  String level,  String? percentage, @JsonKey(name: "GPA")  String? gpa)  $default,) {final _that = this;
 switch (_that) {
 case _EducationModel():
 return $default(_that.course,_that.address,_that.year,_that.order,_that.institute,_that.level,_that.percentage,_that.gpa);case _:
@@ -201,7 +201,7 @@ return $default(_that.course,_that.address,_that.year,_that.order,_that.institut
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? course,  String address, @TimestampConverter()  DateTime? year,  int order,  String institute,  String level,  String? percentage, @JsonKey(name: "GPA")  String? gpa)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? course,  String address,  String? year,  int order,  String institute,  String level,  String? percentage, @JsonKey(name: "GPA")  String? gpa)?  $default,) {final _that = this;
 switch (_that) {
 case _EducationModel() when $default != null:
 return $default(_that.course,_that.address,_that.year,_that.order,_that.institute,_that.level,_that.percentage,_that.gpa);case _:
@@ -216,12 +216,12 @@ return $default(_that.course,_that.address,_that.year,_that.order,_that.institut
 @JsonSerializable()
 
 class _EducationModel implements EducationModel {
-  const _EducationModel({this.course, required this.address, @TimestampConverter() this.year, required this.order, required this.institute, required this.level, this.percentage, @JsonKey(name: "GPA") this.gpa});
+  const _EducationModel({this.course, required this.address, this.year, required this.order, required this.institute, required this.level, this.percentage, @JsonKey(name: "GPA") this.gpa});
   factory _EducationModel.fromJson(Map<String, dynamic> json) => _$EducationModelFromJson(json);
 
 @override final  String? course;
 @override final  String address;
-@override@TimestampConverter() final  DateTime? year;
+@override final  String? year;
 @override final  int order;
 @override final  String institute;
 @override final  String level;
@@ -261,7 +261,7 @@ abstract mixin class _$EducationModelCopyWith<$Res> implements $EducationModelCo
   factory _$EducationModelCopyWith(_EducationModel value, $Res Function(_EducationModel) _then) = __$EducationModelCopyWithImpl;
 @override @useResult
 $Res call({
- String? course, String address,@TimestampConverter() DateTime? year, int order, String institute, String level, String? percentage,@JsonKey(name: "GPA") String? gpa
+ String? course, String address, String? year, int order, String institute, String level, String? percentage,@JsonKey(name: "GPA") String? gpa
 });
 
 
@@ -283,7 +283,7 @@ class __$EducationModelCopyWithImpl<$Res>
 course: freezed == course ? _self.course : course // ignore: cast_nullable_to_non_nullable
 as String?,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String,year: freezed == year ? _self.year : year // ignore: cast_nullable_to_non_nullable
-as DateTime?,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
+as String?,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
 as int,institute: null == institute ? _self.institute : institute // ignore: cast_nullable_to_non_nullable
 as String,level: null == level ? _self.level : level // ignore: cast_nullable_to_non_nullable
 as String,percentage: freezed == percentage ? _self.percentage : percentage // ignore: cast_nullable_to_non_nullable

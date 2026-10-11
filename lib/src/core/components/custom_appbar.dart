@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:portfolio/src/core/config/router/routes.dart';
+import 'package:portfolio/src/core/constants/app_colors.dart';
 import 'package:portfolio/src/core/providers/current_page_provider.dart';
 
 import '../../core/constants/app_strings.dart';
@@ -18,6 +19,7 @@ class CustomScaffold extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: CustomAppBar(),
       body: body,
+    
     );
   }
 }
@@ -30,8 +32,8 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final page = ref.watch(currentPageProvider);
-    final pageNotifier = ref.watch(currentPageProvider.notifier);
+    final page = ref.watch(currentPageProvider(context));
+    final pageNotifier = ref.watch(currentPageProvider(context).notifier);
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     return Container(
@@ -75,35 +77,35 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
                     // Navigation
                     _NavItem(
                       label: AppStrings.home,
-                      isSelected: Routes.home.name == page,
+                      isSelected: Routes.home.path == page,
                       onTap: () {
-                        pageNotifier.changeCurrentPage(Routes.home.name);
-                        context.goNamed(Routes.home.name);
+                        pageNotifier.changeCurrentPage(Routes.home.path);
+                        context.go(Routes.home.path);
                       },
                     ),
                     _NavItem(
                       label: AppStrings.projects,
-                      isSelected: Routes.projects.name == page,
+                      isSelected: Routes.projects.path == page,
                       onTap: () {
-                        pageNotifier.changeCurrentPage(Routes.projects.name);
-                        context.goNamed(Routes.projects.name);
+                        pageNotifier.changeCurrentPage(Routes.projects.path);
+                        context.go(Routes.projects.path);
                       },
                     ),
                     _NavItem(label: AppStrings.blog, onTap: () {}),
                     _NavItem(
                       label: AppStrings.experience,
-                      isSelected: Routes.experience.name == page,
+                      isSelected: Routes.experience.path == page,
                       onTap: () {
-                        pageNotifier.changeCurrentPage(Routes.experience.name);
-                        context.goNamed(Routes.experience.name);
+                        pageNotifier.changeCurrentPage(Routes.experience.path);
+                        context.go(Routes.experience.path);
                       },
                     ),
                     _NavItem(
                       label: AppStrings.contact,
-                      isSelected: Routes.contact.name == page,
+                      isSelected: Routes.contact.path == page,
                       onTap: () {
-                        pageNotifier.changeCurrentPage(Routes.contact.name);
-                        context.goNamed(Routes.contact.name);
+                        pageNotifier.changeCurrentPage(Routes.contact.path);
+                        context.go(Routes.contact.path);
                       },
                     ),
                   ],
@@ -116,8 +118,8 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
                       label: AppStrings.startAProject,
                       icon: Icons.north_east,
                       onPressed: () {
-                        pageNotifier.changeCurrentPage(Routes.contact.name);
-                        context.goNamed(Routes.contact.name);
+                        pageNotifier.changeCurrentPage(Routes.contact.path);
+                        context.go(Routes.contact.path);
                       },
                       padding: EdgeInsets.symmetric(
                         horizontal: 20,
@@ -190,3 +192,4 @@ class _NavItem extends StatelessWidget {
     );
   }
 }
+

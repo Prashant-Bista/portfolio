@@ -9,6 +9,9 @@ part of 'experience_model.dart';
 _ExperienceModel _$ExperienceModelFromJson(Map<String, dynamic> json) =>
     _ExperienceModel(
       company: json['company'] as String,
+      description: (json['description'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       role: json['role'] as String,
       end: const TimestampConverter().fromJson(json['end']),
       order: (json['order'] as num).toInt(),
@@ -19,6 +22,7 @@ _ExperienceModel _$ExperienceModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ExperienceModelToJson(_ExperienceModel instance) =>
     <String, dynamic>{
       'company': instance.company,
+      'description': instance.description,
       'role': instance.role,
       'end': const TimestampConverter().toJson(instance.end),
       'order': instance.order,

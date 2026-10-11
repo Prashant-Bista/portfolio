@@ -7,8 +7,7 @@ abstract class EducationModel with _$EducationModel{
   const factory EducationModel({
  String? course,
 required String address,
-@TimestampConverter()
- DateTime? year,
+ String? year,
  required int order,
 required String institute,
 required String level,

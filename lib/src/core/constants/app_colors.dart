@@ -22,7 +22,7 @@ static const error = Color(0xFFFF6B6B);
   // Main accent — lime green
 
   // Main headings / job titles
-
+static const Color accent = Color(0xFFB6FF3B);
   // Secondary information — company, inactive dates
   static const secondaryText = Color(0xFF9BA3AD);
 

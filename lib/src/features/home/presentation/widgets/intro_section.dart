@@ -33,7 +33,7 @@ class IntroductionSection extends ConsumerWidget {
                 ? _MobileIntroduction(model: model)
                 : _DesktopIntroduction(model: model),
             error: (error, st) => AppErrorWidget(message: error.toString()),
-            loading: () => const AppLoadingWidget(),
+            loading: () =>  ResponsiveShimmer(height: 500.h,),
           ),
         );
       },

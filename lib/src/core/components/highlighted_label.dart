@@ -67,7 +67,7 @@ class LabelChip extends StatelessWidget {
                   icon!,
                   const SizedBox(width: 7),
                 ],
-                Expanded(
+                Flexible(
                   child: Text(
                     label ?? '',
                     style: textTheme.labelSmall?.copyWith(

@@ -12,6 +12,9 @@ required String name,
 required String description,
 required String image,
 required List<String> tags,
+@JsonKey(name:"case_study")
+ Map<String,dynamic>? caseStudy
+
   })=_ProjectModel;
 factory ProjectModel.fromJson(Map<String,dynamic> json)=> _$ProjectModelFromJson(json);
 

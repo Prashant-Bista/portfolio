@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/src/core/components/custom_appbar.dart';
 import 'package:portfolio/src/core/components/error_widget.dart';
 import 'package:portfolio/src/core/components/loading_widget.dart';
@@ -31,14 +32,15 @@ class ExperienceScreen extends ConsumerWidget {
                           ExperienceTimeline(experiences: data),
                       error: (Object error, StackTrace stackTrace) =>
                           AppErrorWidget(message: error.toString()),
-                      loading: () => AppLoadingWidget(),
+                      loading: () => ResponsiveShimmer(height: 600.h,),
                     ),
+                    SizedBox(height: 20.w,),
                     education.when(
                       data: (List<EducationModel> data) =>
                           EducationSection(education: data),
                       error: (Object error, StackTrace stackTrace) =>
                           AppErrorWidget(message: error.toString()),
-                      loading: () => AppLoadingWidget(),
+                      loading: () => ResponsiveShimmer(height: 500.h,),
                     ),
                   ],
                 ),

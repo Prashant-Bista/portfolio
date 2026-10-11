@@ -15,6 +15,7 @@ _ProjectModel _$ProjectModelFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String,
       image: json['image'] as String,
       tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
+      caseStudy: json['case_study'] as Map<String, dynamic>?,
     );
 
 Map<String, dynamic> _$ProjectModelToJson(_ProjectModel instance) =>
@@ -26,4 +27,5 @@ Map<String, dynamic> _$ProjectModelToJson(_ProjectModel instance) =>
       'description': instance.description,
       'image': instance.image,
       'tags': instance.tags,
+      'case_study': instance.caseStudy,
     };

@@ -14,6 +14,7 @@ import 'package:portfolio/src/core/constants/app_strings.dart';
 import 'package:portfolio/src/features/contact/data/contact_model.dart';
 import 'package:portfolio/src/features/contact/presentation/provider/set_contact_provider.dart';
 import 'package:portfolio/src/features/home/presentation/provider/get_personal_details_provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactScreen extends ConsumerWidget {
@@ -78,7 +79,7 @@ class ContactScreen extends ConsumerWidget {
                   },
                 ),
                 error: (e, st) => AppErrorWidget(message: e.toString()),
-                loading: () => AppLoadingWidget(),
+                loading: () => ShimmerCard(height: 500.h,width: 900.w,borderRadius: 28.r,length: 2,),
               ),
             ],
           ),
@@ -570,7 +571,7 @@ class _ContactInfo extends StatelessWidget {
                 SizedBox(height: 18.h),
                 _ContactInfoItem(
                   svgPath: AppImages.linkedin,
-                  label: AppStrings.linkedin,
+                  label: AppStrings.linkedin,                                
                   value: linkedin!,
                 ),
               ],
@@ -682,7 +683,7 @@ class _ContactInfoItem extends StatelessWidget {
               color: AppColors.educationAddress,
             ),
             onPressed: () async {
-              await launchUrl(Uri(scheme: urlScheme, path: value));
+              await launchUrl(urlScheme!=null?Uri(scheme: urlScheme, path: value):Uri.parse(value));
             },
           ),
         ],
