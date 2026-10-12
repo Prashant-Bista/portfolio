@@ -6,15 +6,14 @@ import 'package:portfolio/src/core/components/common_grey_card.dart';
 import 'package:portfolio/src/core/components/custom_appbar.dart';
 import 'package:portfolio/src/core/components/custom_button.dart';
 import 'package:portfolio/src/core/components/custom_text.dart';
-import 'package:portfolio/src/core/components/error_widget.dart';
 import 'package:portfolio/src/core/components/loading_widget.dart';
 import 'package:portfolio/src/core/constants/app_colors.dart';
 import 'package:portfolio/src/core/constants/app_images.dart';
 import 'package:portfolio/src/core/constants/app_strings.dart';
+import 'package:portfolio/src/core/constants/static_data.dart';
 import 'package:portfolio/src/features/contact/data/contact_model.dart';
 import 'package:portfolio/src/features/contact/presentation/provider/set_contact_provider.dart';
 import 'package:portfolio/src/features/home/presentation/provider/get_personal_details_provider.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactScreen extends ConsumerWidget {
@@ -78,7 +77,49 @@ class ContactScreen extends ConsumerWidget {
                     );
                   },
                 ),
-                error: (e, st) => AppErrorWidget(message: e.toString()),
+                error: (e, st) => LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth < 900.w) {
+                      return Column(
+                        children: [
+                          _ContactForm(),
+
+                          SizedBox(height: 24.h),
+                          _ContactInfo(
+                            email: staticPersonalInfo.email,
+                            phone: staticPersonalInfo.phone,
+                            linkedin: staticPersonalInfo.linkedin,
+                            facebook: staticPersonalInfo.facebook,
+                            instagram: staticPersonalInfo.instagram,
+                          ),
+                        ],
+                      );
+                    }
+
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 7,
+                          child: _ContactForm(),
+                        ),
+
+                        SizedBox(width: 24.w),
+
+                        Expanded(
+                          flex: 4,
+                          child: _ContactInfo(
+                            email: staticPersonalInfo.email,
+                            phone: staticPersonalInfo.phone,
+                            linkedin: staticPersonalInfo.linkedin,
+                            facebook: staticPersonalInfo.facebook,
+                            instagram: staticPersonalInfo.instagram,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
                 loading: () => ShimmerCard(height: 500.h,width: 900.w,borderRadius: 28.r,length: 2,),
               ),
             ],

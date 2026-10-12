@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/src/core/components/common_grey_card.dart';
-import 'package:portfolio/src/core/components/error_widget.dart';
 import 'package:portfolio/src/core/components/highlighted_label.dart';
 import 'package:portfolio/src/core/components/loading_widget.dart';
 import 'package:portfolio/src/core/constants/app_strings.dart';
+import 'package:portfolio/src/core/constants/static_data.dart';
 import 'package:portfolio/src/features/home/data/model/personal_info_model.dart';
 import 'package:portfolio/src/features/home/presentation/provider/get_personal_details_provider.dart';
 
@@ -23,7 +23,6 @@ class IntroductionSection extends ConsumerWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 800;
-
         return Padding(
           padding: EdgeInsets.symmetric(
             vertical: 80.h,
@@ -32,7 +31,9 @@ class IntroductionSection extends ConsumerWidget {
             data: (model) => isMobile
                 ? _MobileIntroduction(model: model)
                 : _DesktopIntroduction(model: model),
-            error: (error, st) => AppErrorWidget(message: error.toString()),
+            error: (error, st) => isMobile
+                ? _MobileIntroduction(model: staticPersonalInfo)
+                : _DesktopIntroduction(model: staticPersonalInfo),
             loading: () =>  ResponsiveShimmer(height: 500.h,),
           ),
         );

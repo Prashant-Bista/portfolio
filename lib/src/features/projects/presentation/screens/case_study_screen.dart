@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:portfolio/src/core/components/app_carousel.dart';
 import 'package:portfolio/src/core/components/common_grey_card.dart';
 import 'package:portfolio/src/core/components/custom_text.dart';
 import 'package:portfolio/src/core/components/highlighted_label.dart';
@@ -133,6 +134,12 @@ class CaseStudyScreen extends StatelessWidget {
                   title: CaseStudyTitle.focus,
                   content: _content(CaseStudyTitle.focus),
                 ),
+                _ImageSection(
+                  title: CaseStudyTitle.images,
+                  images: (caseStudy[CaseStudyTitle.images] as List<dynamic>)
+                      .map((each) => each.toString())
+                      .toList(),
+                ),
 
                 /// What I Learned
                 _TextSection(
@@ -252,6 +259,34 @@ class _ListSection extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _ImageSection extends StatelessWidget {
+  final String title;
+  final List<String> images;
+  const _ImageSection({ required this.title, required this.images});
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: EdgeInsets.only(bottom: 28.h),
+      child:CommonGreyCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+            text: title,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            textColor: colorScheme.primary,
+          ),
+          Center(child: ImageCarousel(imageUrls: images)),
+        ],
+      ),
+    ));
   }
 }
 

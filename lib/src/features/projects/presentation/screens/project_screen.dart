@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:portfolio/src/core/components/custom_appbar.dart';
-import 'package:portfolio/src/core/components/error_widget.dart';
 import 'package:portfolio/src/core/components/loading_widget.dart';
+import 'package:portfolio/src/core/components/portfolio_footer.dart';
+import 'package:portfolio/src/core/constants/static_data.dart';
 import 'package:portfolio/src/features/projects/presentation/provider/project_provider.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +17,7 @@ import 'package:portfolio/src/core/constants/app_images.dart';
 import 'package:portfolio/src/core/constants/app_strings.dart';
 import 'package:portfolio/src/features/projects/data/project_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 class ProjectScreen extends ConsumerWidget {
   const ProjectScreen({super.key});
 
@@ -23,20 +25,37 @@ class ProjectScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final projects = ref.watch(getProjectProvider);
     return CustomScaffold(
-      body: projects.when(
-        data: (data) => ListView.separated(
-          padding: EdgeInsets.all(15),
-          
-          itemCount: data.length,
-          itemBuilder: (context, index) => ProjectShowcase(project: data[index]), separatorBuilder: (BuildContext context, int index) =>SizedBox(height: 16,),
-        ),
-        error: (error, st) => AppErrorWidget(message: error.toString()),
-        loading: () => ShimmerList(height: 400.h, ),
+      body: Column(
+        children: [
+          Expanded(
+            child: projects.when(
+              data: (data) => ListView.separated(
+                padding: EdgeInsets.all(15),
+
+                itemCount: data.length,
+                itemBuilder: (context, index) => index == data.length - 1
+                    ? Column(children: [PortfolioFooter()])
+                    : ProjectShowcase(project: data[index]),
+                separatorBuilder: (BuildContext context, int index) =>
+                    SizedBox(height: 16),
+              ),
+              error: (error, st) => ListView.separated(
+                padding: EdgeInsets.all(15),
+
+                itemCount: staticProjects.length,
+                itemBuilder: (context, index) =>
+                    ProjectShowcase(project: staticProjects[index]),
+                separatorBuilder: (BuildContext context, int index) =>
+                    SizedBox(height: 16),
+              ),
+              loading: () => ShimmerList(height: 400.h),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
-
 
 class ProjectShowcase extends StatelessWidget {
   final ProjectModel project;
@@ -261,7 +280,6 @@ class _ProjectLinks extends StatelessWidget {
       );
     }
 
-    
     if (links.isEmpty) {
       return const SizedBox.shrink();
     }

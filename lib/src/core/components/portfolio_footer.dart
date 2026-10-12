@@ -2,22 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:portfolio/src/core/components/custom_button.dart';
 import 'package:portfolio/src/core/components/custom_text.dart';
+import 'package:portfolio/src/core/components/loading_widget.dart';
 import 'package:portfolio/src/core/config/router/routes.dart';
 import 'package:portfolio/src/core/constants/app_colors.dart';
-import 'package:portfolio/src/core/providers/current_page_provider.dart';
+import 'package:portfolio/src/core/constants/static_data.dart';
+import 'package:portfolio/src/features/home/presentation/provider/get_personal_details_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/constants/app_strings.dart';
-import 'custom_button.dart';
 
 class PortfolioFooter extends StatelessWidget {
-  final String githubUrl;
-  final String linkedinUrl;
-  const PortfolioFooter({
-    super.key,
-    required this.githubUrl,
-    required this.linkedinUrl,
-  });
+  const PortfolioFooter({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,35 +35,26 @@ class PortfolioFooter extends StatelessWidget {
                 ? _buildMobileCTA(context)
                 : _buildDesktopCTA(context),
           ),
-          Divider(
-            height: 1,
-            thickness: 1,
-            color: colorScheme.outlineVariant.withValues(alpha: 0.65),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: isMobile ? 24.w : 72.w,
-              vertical: 24.h,
-            ),
-            child: isMobile
-                ? _buildMobileBottom(context)
-                : _buildDesktopBottom(context),
-          ),
+          PortfolioBottom(),
         ],
       ),
     );
   }
 
   Widget _buildDesktopCTA(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(child: _buildCTAContent(context)),
         SizedBox(width: 32.w),
-        _buildBookingButton(context),
+        CustomButton(
+          label: AppStrings.contact,
+          icon: Icons.contact_mail,
+          onPressed: () {
+            context.goNamed(Routes.contact.name);
+          },
+        ),
       ],
     );
   }
@@ -83,7 +71,6 @@ class PortfolioFooter extends StatelessWidget {
   }
 
   Widget _buildCTAContent(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
     return Column(
@@ -108,8 +95,6 @@ class PortfolioFooter extends StatelessWidget {
   }
 
   Widget _buildBookingButton(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Material(
       color: AppColors.accent,
       borderRadius: BorderRadius.circular(100.r),
@@ -141,12 +126,40 @@ class PortfolioFooter extends StatelessWidget {
       ),
     );
   }
+}
+
+class PortfolioBottom extends StatelessWidget {
+  const PortfolioBottom({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isMobile = MediaQuery.sizeOf(context).width < 700;
+    return Column(
+      children: [
+        Divider(
+          height: 1,
+          thickness: 1,
+          color: colorScheme.outlineVariant.withValues(alpha: 0.65),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? 24.w : 72.w,
+            vertical: 24.h,
+          ),
+          child: isMobile
+              ? _buildMobileBottom(context)
+              : _buildDesktopBottom(context),
+        ),
+      ],
+    );
+  }
 
   Widget _buildDesktopBottom(BuildContext context) {
     return Row(
       children: [
         Expanded(child: _buildCopyright(context)),
-        Expanded(child: Center(child: _buildSocialLinks(context))),
+        Expanded(child: Center(child: BuildSocialLinks())),
         Expanded(
           child: Align(
             alignment: Alignment.centerRight,
@@ -161,7 +174,7 @@ class PortfolioFooter extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSocialLinks(context),
+        BuildSocialLinks(),
         SizedBox(height: 24.h),
         _buildAvailability(context),
         SizedBox(height: 16.h),
@@ -177,33 +190,6 @@ class PortfolioFooter extends StatelessWidget {
       text: AppStrings.footerSubtitle,
       textColor: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
       fontSize: 11,
-    );
-  }
-
-  Widget _buildSocialLinks(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    final links = [
-      ('GitHub', githubUrl),
-      ('LinkedIn', linkedinUrl),
-      ('Email', 'mailto:your-email@example.com'),
-    ];
-
-    return Wrap(
-      spacing: 24.w,
-      runSpacing: 12.h,
-      children: links.map((link) {
-        return InkWell(
-          onTap: () {
-            // Open link[1] using url_launcher.
-          },
-          child: CustomText(
-            text: link.$1,
-            fontSize: 13,
-            textColor: colorScheme.onSurfaceVariant,
-          ),
-        );
-      }).toList(),
     );
   }
 
@@ -228,6 +214,77 @@ class PortfolioFooter extends StatelessWidget {
           textColor: colorScheme.onSurfaceVariant,
         ),
       ],
+    );
+  }
+}
+
+class BuildSocialLinks extends ConsumerWidget {
+  const BuildSocialLinks({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final personalDetails = ref.watch(getPersonalDetailsProvider);
+    return personalDetails.when(
+      data: (details) {
+        final links = [
+          ('GitHub', details.github),
+          ('LinkedIn', details.linkedin),
+          ('Email', details.email),
+        ];
+
+        return Wrap(
+          spacing: 24.w,
+          runSpacing: 12.h,
+          children: links.map((link) {
+            return InkWell(
+              onTap: () {
+                if (link.$1 == 'Email') {
+                  launchUrl(Uri(scheme: 'mailto', path: link.$2));
+                } else {
+                  launchUrl(Uri.parse(link.$2));
+                }
+              },
+              child: CustomText(
+                text: link.$1,
+                isSelectable: false,
+                fontSize: 13,
+                textColor: colorScheme.onSurfaceVariant,
+              ),
+            );
+          }).toList(),
+        );
+      },
+      error: (error, st) {
+        final links = [
+          ('GitHub', staticPersonalInfo.github),
+          ('LinkedIn', staticPersonalInfo.linkedin),
+          ('Email', staticPersonalInfo.email),
+        ];
+
+        return Wrap(
+          spacing: 24.w,
+          runSpacing: 12.h,
+          children: links.map((link) {
+            return InkWell(
+              onTap: () {
+                if (link.$1 == 'Email') {
+                  launchUrl(Uri(scheme: 'mailto', path: link.$2));
+                } else {
+                  launchUrl(Uri.parse(link.$2));
+                }
+              },
+              child: CustomText(
+                text: link.$1,
+                isSelectable: false,
+                fontSize: 13,
+                textColor: colorScheme.onSurfaceVariant,
+              ),
+            );
+          }).toList(),
+        );
+      },
+      loading: () => AppLoadingWidget(),
     );
   }
 }

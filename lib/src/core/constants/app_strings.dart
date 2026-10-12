@@ -39,12 +39,6 @@ class AppStrings {
   static const String introduction = 'Introduction';
   static const String aboutMe = 'A little about me';
 
-  static const String fullName = 'Prashant Bista';
-  static const String address = 'Lalitpur, Nepal';
-  static const String phone = '+977 9812365544';
-  static const String email = 'bistaprashant1@example.com';
-  static const String dateOfBirth = 'February 15, 2002';
-  static const String workExperience = '1.5+ years';
 
   static const String addressLabel = 'Address';
   static const String phoneLabel = 'Phone';
@@ -160,7 +154,7 @@ class AppStrings {
   static const footerSubtitle =
       'Let’s turn a sharp product idea into a dependable mobile experience.';
   static const footerIntro =
-      "© 2026 Alex Dev. Built for small screens and big ideas.";
+      "© 2026 Prashant Bista. Built for small screens and big ideas.";
   static const footerTitle = 'Have an app worth building?';
   static const footerNote = 'iOS · Android · Everywhere';
 }
@@ -174,6 +168,8 @@ class CaseStudyTitle {
   static const String architecture = 'Architecture';
   static const String designFocus = 'Design Focus';
   static const String focus = 'Focus';
+    static const String images = 'Images';
+
 
   static const String whatILearned = 'What I Learned';
 }

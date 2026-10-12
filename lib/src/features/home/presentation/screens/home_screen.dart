@@ -13,7 +13,6 @@ import 'package:portfolio/src/features/home/presentation/widgets/contact_cta_sec
 import 'package:portfolio/src/features/home/presentation/widgets/intro_section.dart';
 import 'package:portfolio/src/features/home/presentation/widgets/tech_stack_section.dart';
 
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -21,41 +20,41 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold(
       body: SingleChildScrollView(
-              child: Center(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    maxWidth: 1100,
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: double.infinity),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 100,
+                    vertical: 64,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 64,
-                    ),
-                    child:  Column(
-                      children: [
-                        const IntroductionSection(),
+                  child: Column(
+                    children: [
+                      const IntroductionSection(),
 
-                        SizedBox(height: 80.h),
-                        const _HeroSection(),
+                      SizedBox(height: 80.h),
+                      const _HeroSection(),
 
-                        const TechStackSection(),
+                      const TechStackSection(),
 
-                        SizedBox(height: 40.h),
+                      SizedBox(height: 40.h),
 
-                        ContactCtaSection(
-                          onPressed: () {},
-                        ),
-                        // PortfolioFooter(githubUrl: , linkedinUrl: linkedinUrl)
-                      ],
-                    ),
+                      ContactCtaSection(onPressed: () {}),
+                    ],
                   ),
                 ),
-                  ),
-                ),
-          );
-        
+                PortfolioFooter(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
+
 class _HeroContent extends StatelessWidget {
   const _HeroContent();
 
@@ -71,12 +70,10 @@ class _HeroContent extends StatelessWidget {
         LabelChip(
           width: 200,
           label: AppStrings.availability,
-          backgroundColor:
-              colors.primary.withValues(alpha: 0.10),
+          backgroundColor: colors.primary.withValues(alpha: 0.10),
           textColor: colors.primary,
-        
+
           borderRadius: BorderRadius.circular(20),
-          
         ),
 
         const SizedBox(height: 28),
@@ -88,35 +85,27 @@ class _HeroContent extends StatelessWidget {
 
         // Description
         ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 510,
-          ),
+          constraints: const BoxConstraints(maxWidth: 510),
           child: Text(
             AppStrings.heroDescription,
-            style: textTheme.bodyLarge?.copyWith(
-              height: 1.55,
-            ),
+            style: textTheme.bodyLarge?.copyWith(height: 1.55),
           ),
         ),
 
         const SizedBox(height: 26),
 
         // Buttons
-       CustomButton(
-              label: AppStrings.exploreWorks,
-              icon: Icons.arrow_forward,
-              fontSize: 12,
-              padding: EdgeInsets.symmetric(vertical: 4.h,horizontal: 8.w),
-              onPressed: () {
-                context.goNamed(Routes.projects.name);
-              },
-            ),
+        CustomButton(
+          label: AppStrings.exploreWorks,
+          icon: Icons.arrow_forward,
+          fontSize: 12,
+          padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 8.w),
+          onPressed: () {
+            context.goNamed(Routes.projects.name);
+          },
+        ),
 
         const SizedBox(height: 25),
-
-       
-
-
       ],
     );
   }
@@ -137,29 +126,25 @@ class _HeroContent extends StatelessWidget {
         style: style,
         children: [
           const TextSpan(
-            text: '${AppStrings.heroTitleLineOne}\n'
+            text:
+                '${AppStrings.heroTitleLineOne}\n'
                 '${AppStrings.heroTitleLineTwo}\n',
           ),
 
           TextSpan(
             text: AppStrings.heroTitleHighlight,
-            style: style?.copyWith(
-              color: colors.primary,
-            ),
+            style: style?.copyWith(color: colors.primary),
           ),
 
-          TextSpan(
-            text: ' ${AppStrings.heroTitleLineThree}\n',
-          ),
+          TextSpan(text: ' ${AppStrings.heroTitleLineThree}\n'),
 
-          const TextSpan(
-            text: AppStrings.heroTitleLineFour,
-          ),
+          const TextSpan(text: AppStrings.heroTitleLineFour),
         ],
       ),
     );
   }
 }
+
 class _HeroSection extends StatelessWidget {
   const _HeroSection();
 
@@ -168,32 +153,37 @@ class _HeroSection extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = constraints.maxWidth < 800;
-        
-        return  isMobile?Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        _HeroContent(),
 
-        const SizedBox(width: 50),
+        return isMobile
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _HeroContent(),
 
-        ImageComponent(pngPath: AppImages.heroShowcase,width: constraints.maxWidth*0.85,height: 500.h,),
-      ],
-    ):Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(
-          child: _HeroContent(),
-        ),
+                  const SizedBox(width: 50),
 
-        const SizedBox(width: 50),
+                  ImageComponent(
+                    pngPath: AppImages.heroShowcase,
+                    width: constraints.maxWidth * 0.85,
+                    height: 500.h,
+                  ),
+                ],
+              )
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(child: _HeroContent()),
 
-        ImageComponent(pngPath: AppImages.heroShowcase,width: 600.w,height: 750.h,),
-      ],
-    );
-      }
+                  const SizedBox(width: 50),
+
+                  ImageComponent(
+                    pngPath: AppImages.heroShowcase,
+                    width: 600.w,
+                    height: 750.h,
+                  ),
+                ],
+              );
+      },
     );
   }
 }
-
-
-

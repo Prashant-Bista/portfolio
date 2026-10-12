@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:portfolio/src/core/config/router/routes.dart';
-import 'package:portfolio/src/core/constants/app_colors.dart';
+import 'package:portfolio/src/core/constants/static_data.dart';
 import 'package:portfolio/src/core/providers/current_page_provider.dart';
 
 import '../../core/constants/app_strings.dart';
@@ -63,7 +63,7 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppStrings.fullName,
+                          staticPersonalInfo.name,
                           style: textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w500,
                           ),

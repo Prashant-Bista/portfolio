@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:portfolio/src/core/utils/time_stamp_converter.dart';
 part 'education_model.g.dart';
 part 'education_model.freezed.dart';
 @freezed 

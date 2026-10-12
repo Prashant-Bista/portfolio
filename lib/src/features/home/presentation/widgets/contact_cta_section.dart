@@ -15,7 +15,40 @@ class ContactCtaSection extends ConsumerWidget {
   });
 
   final VoidCallback? onPressed;
+  Widget _ctaTitle() {
+    return Builder(
+      builder: (context) {
+        final colors =
+            Theme.of(context).colorScheme;
+        final textTheme =
+            Theme.of(context).textTheme;
 
+        return RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            style: textTheme.displaySmall?.copyWith(
+              fontSize: 43,
+              height: 1.1,
+              fontWeight: FontWeight.w300,
+              letterSpacing: -1.5,
+            ),
+            children: [
+              const TextSpan(
+                text: "LET'S BUILD SOMETHING ",
+              ),
+              TextSpan(
+                text: 'REMARKABLE',
+                style: TextStyle(
+                  color: colors.primary,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final colors = Theme.of(context).colorScheme;
@@ -33,7 +66,7 @@ class ContactCtaSection extends ConsumerWidget {
         padding: const EdgeInsets.all(24),
         child: Column(
               children: [
-                _CtaTitle(),
+                _ctaTitle(),
         
                 SizedBox(height: 15.h),
         
@@ -71,38 +104,5 @@ class ContactCtaSection extends ConsumerWidget {
     );
   }
 
-  Widget _CtaTitle() {
-    return Builder(
-      builder: (context) {
-        final colors =
-            Theme.of(context).colorScheme;
-        final textTheme =
-            Theme.of(context).textTheme;
 
-        return RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            style: textTheme.displaySmall?.copyWith(
-              fontSize: 43,
-              height: 1.1,
-              fontWeight: FontWeight.w300,
-              letterSpacing: -1.5,
-            ),
-            children: [
-              const TextSpan(
-                text: "LET'S BUILD SOMETHING ",
-              ),
-              TextSpan(
-                text: 'REMARKABLE',
-                style: TextStyle(
-                  color: colors.primary,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
 }

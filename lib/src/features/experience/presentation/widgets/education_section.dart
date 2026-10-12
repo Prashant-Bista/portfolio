@@ -139,11 +139,11 @@ if(education.year!=null)...[ CustomText(
     );
   }
 
-  String _formatYear(DateTime? year) {
-    if (year == null) {
-      return '—';
-    }
+  // String _formatYear(DateTime? year) {
+  //   if (year == null) {
+  //     return '—';
+  //   }
 
-    return year.year.toString();
-  }
+  //   return year.year.toString();
+  // }
 }

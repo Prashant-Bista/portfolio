@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:portfolio/src/core/components/custom_text.dart';
+import 'package:portfolio/src/core/components/portfolio_footer.dart';
 import 'package:portfolio/src/core/constants/app_colors.dart';
 import 'package:portfolio/src/core/utils/month_converter.dart';
 import 'package:portfolio/src/features/experience/data/model/experience_model.dart';
@@ -13,7 +14,7 @@ class ExperienceTimeline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: List.generate(experiences.length, (index) {
+      children: [...List.generate(experiences.length, (index) {
         final experience = experiences[index];
 
         return ExperienceTimelineItem(
@@ -21,7 +22,7 @@ class ExperienceTimeline extends StatelessWidget {
           isLast: index == experiences.length - 1,
         );
       }),
-    );
+    ]);
   }
 }
 
