@@ -134,7 +134,7 @@ class CaseStudyScreen extends StatelessWidget {
                   title: CaseStudyTitle.focus,
                   content: _content(CaseStudyTitle.focus),
                 ),
-                _ImageSection(
+               if (caseStudy[CaseStudyTitle.images]!=null) _ImageSection(
                   title: CaseStudyTitle.images,
                   images: (caseStudy[CaseStudyTitle.images] as List<dynamic>)
                       .map((each) => each.toString())
